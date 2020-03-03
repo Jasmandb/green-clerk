@@ -4,8 +4,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class RotateTarget:
+class ComputerVision:
     def __init__(self):
+        self.type = {}
+
+    def run(self, image_location):
         pass
 
 

@@ -4,7 +4,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class RotateTarget:
+# TODO: COMPLETE THIS CLASS FOR EP
+class Load:
     def __init__(self):
         pass
 
