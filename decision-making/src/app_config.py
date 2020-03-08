@@ -4,7 +4,6 @@ import logging
 logging.basicConfig(format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
 
 
-@unique
 class Thresholds(int, Enum):
     INDUCTIVE_SENSOR = 1
     CAPACITIVE_SENSOR = 1
@@ -20,6 +19,14 @@ class Classification(str, Enum):
     RECYCLABLES = 'RECYCLABLES'
     UNKNOWN = 'UNKNOWN'
     PLASTIC = 'PLASTIC'
+
+
+@unique
+class BinLocation(int, Enum):
+    GARBAGE = 0
+    PAPER = 90
+    GLASS = 180
+    RECYCLABLES = 270
 
 
 @unique
@@ -49,6 +56,12 @@ class Step(str, Enum):
     LOAD = 'LOAD'
     CLASSIFY = 'CLASSIFY'
     DROP = 'DROP'
+
+
+@unique
+class RelayStates(str, Enum):
+    OPEN = "OPEN"
+    CLOSE = "CLOSE"
 
 
 class Waste:
