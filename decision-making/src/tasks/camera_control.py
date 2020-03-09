@@ -1,4 +1,3 @@
-import src.app_config
 import logging
 import cv2
 
