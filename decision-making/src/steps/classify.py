@@ -1,6 +1,5 @@
 from src.app_config import Step, Classification, Thresholds
 import logging
-from src.tasks.camera_control import CameraControl
 from src.tasks.sensors_manager import SensorsManager
 from src.tasks.computer_vision import ComputerVision
 

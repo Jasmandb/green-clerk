@@ -1,3 +1,4 @@
 Pillow
 numpy
+nanpy
 tensorflow~=2.0
