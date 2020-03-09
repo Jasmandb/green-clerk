@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 class CameraControl:
     def __init__(self):
-        self.image_location = "/home/pi/webcam_img.jpg" #this can be modified
+        self.image_location = '../../resources/webcam_img.jpg'
         self.image_width = 1280
         self.image_height = 720
 
@@ -18,16 +18,17 @@ class CameraControl:
             cam.set(cv2.CAP_PROP_FRAME_HEIGHT, self.image_height)
 
             logger.debug('taking a picture with webcam')
-            ret, img = cam.read() #ret is true upon success
+            ret, img = cam.read()  # ret is true upon success
             logger.debug('saving picture for access by computer vision')
             cv2.imwrite(self.image_location, img)
 
             cam.release()
             logger.debug('webcam connection closed')
         else:
-            #TODO: what do we do if camera not found?
+            # TODO: what do we do if camera not found?
             logger.error('webcam could not be accessed')
 
 
 if __name__ == '__main__':
-    logger.info('hello world')
+    logger.info('Starting CameraControl and taking a picture')
+    CameraControl().take_picture()
