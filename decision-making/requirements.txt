@@ -1,0 +1,3 @@
+Pillow
+numpy
+tensorflow~=2.0
