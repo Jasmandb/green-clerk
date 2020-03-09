@@ -4,10 +4,12 @@ import logging
 logging.basicConfig(format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
 
 
-class Thresholds(int, Enum):
-    INDUCTIVE_SENSOR = 1
-    CAPACITIVE_SENSOR = 1
+class Constants(int, Enum):
+    INDUCTIVE_SENSOR_THRESHOLD = 1
+    CAPACITIVE_SENSOR_THRESHOLD = 1
     WEIGHT = 100
+    NUM_INDUCTIVE_SENSOR = 6
+    NUM_CAPACITIVE_SENSOR = 6
 
 
 @unique

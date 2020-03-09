@@ -1,4 +1,4 @@
-import src.app_config
+from src.app_config import Constants
 from nanpy import ArduinoApi, SerialManager
 import logging
 
@@ -32,20 +32,19 @@ class SensorsManager:
 
     def run(self):
         try:
-            while True:
-                for pin in self.inductive_pins:
-                    temp = self.ard_api.digitalRead(pin)
-                    if temp != self.inductive_pins[pin]:
-                        if temp == self.ard_api.LOW:
-                            self.inductive.num_of_sensors_triggered += 1
-                        self.inductive_pins[pin] = temp
+            for pin in self.inductive_pins:
+                temp = self.ard_api.digitalRead(pin)
+                if temp != self.inductive_pins[pin]:
+                    if temp == self.ard_api.LOW:
+                        self.inductive.num_of_sensors_triggered += 1
+                    self.inductive_pins[pin] = temp
 
-                for pin in self.capacitive_pins:
-                    temp = self.ard_api.digitalRead(pin)
-                    if temp != self.capacitive_pins[pin]:
-                        if temp == self.ard_api.LOW:
-                            self.capacitive.num_of_sensors_triggered += 1
-                        self.capacitive_pins[pin] = temp
+            for pin in self.capacitive_pins:
+                temp = self.ard_api.digitalRead(pin)
+                if temp != self.capacitive_pins[pin]:
+                    if temp == self.ard_api.LOW:
+                        self.capacitive.num_of_sensors_triggered += 1
+                    self.capacitive_pins[pin] = temp
         except Exception as e:
             logging.error('Unexpected Exception while reading the sensors: {}'.format(str(e)))
             raise e
@@ -53,14 +52,18 @@ class SensorsManager:
 
 class InductiveSensor:
     def __init__(self):
-        self.percentage_triggered = None
         self.num_of_sensors_triggered = 0
+
+    def get_percentage_triggered(self):
+        return (self.num_of_sensors_triggered / Constants.NUM_INDUCTIVE_SENSOR) * 100
 
 
 class CapacitiveSensor:
     def __init__(self):
-        self.percentage_triggered = None
         self.num_of_sensors_triggered = 0
+
+    def get_percentage_triggered(self):
+        return (self.num_of_sensors_triggered / Constants.NUM_CAPACITIVE_SENSOR) * 100
 
 
 class WeightSensor:

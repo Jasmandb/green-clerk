@@ -1,4 +1,4 @@
-from src.app_config import Step, Classification, Thresholds
+from src.app_config import Step, Classification, Constants
 import logging
 from src.tasks.sensors_manager import SensorsManager
 from src.tasks.computer_vision import ComputerVision
@@ -16,18 +16,17 @@ class Classify:
 
     def run(self):
         logger.info('Running the classifying class')
-        # TODO: Think about the overhead added by multi-threading given that would need the CV results in the CS
+        self.computer_vision.run()
         self.sensors_manager.run()
-        if self.sensors_manager.inductive.percentage_triggered > Thresholds.INDUCTIVE_SENSOR:
+        if self.sensors_manager.inductive.get_percentage_triggered() > Constants.INDUCTIVE_SENSOR_THRESHOLD:
             self.waste.type = Classification.METAL
             return
-        self.computer_vision.run()
 
-        if self.sensors_manager.inductive.percentage_triggered != 0:
+        if self.sensors_manager.inductive.get_percentage_triggered() != 0:
             self.inductive_sensor_below_threshold()
-        elif self.sensors_manager.capacitive.percentage_triggered > Thresholds.CAPACITIVE_SENSOR:
+        elif self.sensors_manager.capacitive.get_percentage_triggered() > Constants.CAPACITIVE_SENSOR_THRESHOLD:
             self.capacitive_sensor_above_threshold()
-        elif self.sensors_manager.capacitive.percentage_triggered != 0:
+        elif self.sensors_manager.capacitive.get_percentage_triggered() != 0:
             self.capacitive_sensor_below_threshold()
         else:
             self.no_sensor_triggered()
@@ -41,7 +40,7 @@ class Classify:
 
     def capacitive_sensor_below_threshold(self):
         logger.debug('The capacitive sensor is below the threshold.')
-        heavy_item = self.sensors_manager.weight.value > Thresholds.WEIGHT
+        heavy_item = self.sensors_manager.weight.value > Constants.WEIGHT
         if self.computer_vision.type[1] == Classification.PAPER and not heavy_item:
             self.waste.type = Classification.PAPER
         elif self.computer_vision.type[1] == Classification.GLASS:
@@ -53,7 +52,7 @@ class Classify:
 
     def capacitive_sensor_above_threshold(self):
         logger.debug('The capacitive sensor is above the threshold.')
-        heavy_item = self.sensors_manager.weight.value > Thresholds.WEIGHT
+        heavy_item = self.sensors_manager.weight.value > Constants.WEIGHT
         if self.computer_vision.type[1] == Classification.PAPER and not heavy_item:
             self.waste.type = Classification.PAPER
         elif self.computer_vision.type[1] == Classification.GLASS:
@@ -69,7 +68,7 @@ class Classify:
 
     def no_sensor_triggered(self):
         logger.debug('No sensor was triggered')
-        heavy_item = self.sensors_manager.weight.value > Thresholds.WEIGHT
+        heavy_item = self.sensors_manager.weight.value > Constants.WEIGHT
         if not heavy_item and self.computer_vision.type[1] == Classification.PAPER:
             self.waste.type = Classification.PAPER
         elif not heavy_item and self.computer_vision.type[1] == Classification.PLASTIC:
