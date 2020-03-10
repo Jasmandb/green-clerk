@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 class CameraControl:
     def __init__(self):
-        self.image_location = '../resources/webcam_img.jpg'
+        self.image_location = '../../resources/webcam_img.jpg'
         self.image_width = 1280
         self.image_height = 720
 

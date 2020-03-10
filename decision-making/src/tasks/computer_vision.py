@@ -16,7 +16,7 @@ class ComputerVision:
         self.type = {}
         self.camera_control = CameraControl()
         self.image_location = None
-        self.model_file = '../resources/new_mobile_model.tflite'
+        self.model_file = '../../resources/new_mobile_model.tflite'
         self.labels = ['Garbage', 'Glass', 'Metal', 'Paper', 'Plastic']
         self.input_mean = 0
         self.input_std = 255
