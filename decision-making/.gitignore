@@ -104,3 +104,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+
+resources/new_mobile_model.tflite
+resources/webcam_img.jpg

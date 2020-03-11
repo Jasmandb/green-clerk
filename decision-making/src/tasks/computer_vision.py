@@ -58,12 +58,12 @@ class ComputerVision:
             self.type[1] = Classification[self.labels[top_k[0]].upper()]
             self.type[2] = Classification[self.labels[top_k[1]].upper()] if self.within_ten_percent(
                 float(results[top_k[0]]), float(results[top_k[1]])) else None
-            logger.debug('Top type by computer vision is {}: {:08.6f}'.format(self.type[0], float(results[top_k[0]])))
+            logger.debug('Top type by computer vision is {}: {:08.6f}'.format(self.type[1], float(results[top_k[0]])))
         else:
             self.type[1] = Classification[self.labels[top_k[0]].upper()]
             self.type[2] = Classification[self.labels[top_k[1]].upper()] if self.within_ten_percent(
                 float(results[top_k[0]] / 255), float(results[top_k[1]] / 255)) else None
-            logger.debug('Top type by computer vision is {}: {:08.6f}'.format(self.type[0], float(results[top_k[0]])))
+            logger.debug('Top type by computer vision is {}: {:08.6f}'.format(self.type[1], float(results[top_k[0]])))
 
     def within_ten_percent(self, x, y):
         return True if (((x - y) / x) * 100) < 10 else False
@@ -71,3 +71,5 @@ class ComputerVision:
 
 if __name__ == '__main__':
     ComputerVision().run()
+    import os
+    print(os.getcwd())
