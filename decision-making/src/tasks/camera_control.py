@@ -11,8 +11,8 @@ class CameraControl:
         self.image_height = 720
 
     def take_picture(self):
-        cam = cv2.VideoCapture(0)
-        if cam.isOpened():
+        try:
+            cam = cv2.VideoCapture(0)
             logger.debug('webcam connection opened')
             cam.set(cv2.CAP_PROP_FRAME_WIDTH, self.image_width)
             cam.set(cv2.CAP_PROP_FRAME_HEIGHT, self.image_height)
@@ -24,9 +24,9 @@ class CameraControl:
 
             cam.release()
             logger.debug('webcam connection closed')
-        else:
-            # TODO: what do we do if camera not found?
-            logger.error('webcam could not be accessed')
+        except Exception as e:
+            logger.error('Failed to access the webcam with exception {}'.format(str(e)))
+            raise e
 
 
 if __name__ == '__main__':
