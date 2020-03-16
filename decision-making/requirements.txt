@@ -1,5 +1,6 @@
 Pillow
 numpy
-nanpy
+nanpy==0.9.6
+pyserial==3.4
 opencv-python
 tensorflow~=2.0

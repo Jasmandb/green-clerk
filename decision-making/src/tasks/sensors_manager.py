@@ -1,5 +1,6 @@
-from src.app_config import Constants
+from src.app_config import Constants, Pins
 from nanpy import ArduinoApi, SerialManager
+from collections import defaultdict
 import logging
 
 logger = logging.getLogger(__name__)
@@ -12,10 +13,12 @@ class SensorsManager:
         self.weight = WeightSensor()
         self.ard_api = None
         self.create_connection_channel()
-        self.inductive_pins = {2: self.ard_api.HIGH, 3: self.ard_api.HIGH, 4: self.ard_api.HIGH, 5: self.ard_api.HIGH,
-                               6: self.ard_api.HIGH, 7: self.ard_api.HIGH}
-        self.capacitive_pins = {8: self.ard_api.HIGH, 9: self.ard_api.HIGH, 1: self.ard_api.HIGH,
-                                11: self.ard_api.HIGH, 12: self.ard_api.HIGH, 13: self.ard_api.HIGH}
+        self.inductive_pins = defaultdict(self.ard_api.HIGH)
+        self.capacitive_pins = defaultdict(self.ard_api.HIGH)
+        # self.inductive_pins = {2: self.ard_api.HIGH, 3: self.ard_api.HIGH, 4: self.ard_api.HIGH, 5: self.ard_api.HIGH,
+        #                        6: self.ard_api.HIGH, 7: self.ard_api.HIGH}
+        # self.capacitive_pins = {8: self.ard_api.HIGH, 9: self.ard_api.HIGH, 10: self.ard_api.HIGH,
+        #                         11: self.ard_api.HIGH, 12: self.ard_api.HIGH, 13: self.ard_api.HIGH}
         self.setup_pin_modes()
 
     def create_connection_channel(self):
@@ -27,7 +30,7 @@ class SensorsManager:
             raise e
 
     def setup_pin_modes(self):
-        for pin in [*self.inductive_pins, *self.capacitive_pins]:
+        for pin in [*Pins.INDUCTIVE_PINS, *Pins.CAPACITIVE_PINS]:
             self.ard_api.pinMode(pin, self.ard_api.INPUT)
 
     def run(self):
@@ -73,9 +76,4 @@ class WeightSensor:
 
 if __name__ == '__main__':
     logger.info('SensorsManager')
-    SensorsManager()
-    # need for testing purposes
-    # self.inductive_pins = {2: 'HIGH', 3: 'HIGH', 4: 'HIGH', 5: 'HIGH',
-    #                        6: 'HIGH', 7: 'HIGH'}
-    # self.capacitive_pins = {8: 'HIGH', 9: 'HIGH', 1: 'HIGH',
-    #                         11: 'HIGH', 12: 'HIGH', 13: 'HIGH'}
+    SensorsManager().run()
