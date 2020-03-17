@@ -17,13 +17,14 @@ class SensorsManager:
         self.capacitive_pins = {8: self.ard_api.HIGH, 9: self.ard_api.HIGH, 1: self.ard_api.HIGH,
                                 11: self.ard_api.HIGH, 12: self.ard_api.HIGH, 13: self.ard_api.HIGH}
         self.setup_pin_modes()
+        self.ard_id = '/dev/ttyACM1'
 
     def create_connection_channel(self):
         try:
             # TODO: change the device name to the actual device serial number after attaching a firmware to it
-            self.ard_api = ArduinoApi(connection=SerialManager(device='/dev/ttyACM1'))
+            self.ard_api = ArduinoApi(connection=SerialManager(device=self.ard_id))
         except Exception as e:
-            logging.error('Failed to connect to Arduino {}'.format(str(e)))
+            logging.error('Failed to connect to ard_id: {} and error: {}'.format(self.ard_id, str(e)))
             raise e
 
     def setup_pin_modes(self):

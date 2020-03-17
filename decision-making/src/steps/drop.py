@@ -1,4 +1,4 @@
-from src.app_config import Step, BinLocation, BinLevel, RelayStates
+from src.app_config import Step, RelayStates
 import logging
 from src.tasks.relay_control import RelayControl
 from src.tasks.rotate_target import RotateTarget
@@ -24,11 +24,11 @@ class Drop:
         self.waste.step = Step.DROP
 
     def run(self):
-        self.rotate_target.run(bin_type=BinLocation[self.waste.type])
+        self.rotate_target.run(bin_type=self.waste.type)
         self.relay_control.run(RelayStates.OPEN)
         # TODO: Maybe wait a little to confirm item dropped (add IR sensor input here maybe)
         self.relay_control.run(RelayStates.CLOSE)
-        self.rotate_target.run(bin_type=BinLocation.DEFAULT)
+        self.rotate_target.roll_back()
 
 
 if __name__ == '__main__':
