@@ -13,6 +13,14 @@ class Constants(int, Enum):
 
 
 @unique
+class Pins(list, Enum):
+    INDUCTIVE_PINS = [2, 3, 4, 5, 6, 7]
+    CAPACITIVE_PINS = [8, 9, 10, 11, 12, 13]
+    ULTRASONIC_PINS = [(9, 8), (5, 4)]
+    IR_PINS = [3]
+
+
+@unique
 class Classification(str, Enum):
     GARBAGE = 'GARBAGE'
     PAPER = 'PAPER'
