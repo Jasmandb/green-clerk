@@ -1,7 +1,6 @@
 import time
-from src.app_config import Pins, BinLocation
+from src.app_config import Pins, BinLocation, logging
 from nanpy import ArduinoApi, SerialManager, Servo
-import logging
 
 logger = logging.getLogger(__name__)
 
