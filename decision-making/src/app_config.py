@@ -2,6 +2,7 @@ from enum import Enum, unique
 import logging
 
 logging.basicConfig(format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
+logging.getLogger('nanpy').addHandler(logging.NullHandler())
 
 
 class Constants(int, Enum):
@@ -35,10 +36,10 @@ class Classification(str, Enum):
 
 @unique
 class BinLocation(int, Enum):
-    GARBAGE = 0
-    PAPER = 90
-    GLASS = 180
-    RECYCLABLES = 270
+    GARBAGE = 500
+    PAPER = 1100
+    GLASS = 1650
+    RECYCLABLES = 2150
 
 
 @unique

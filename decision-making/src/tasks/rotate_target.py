@@ -21,7 +21,7 @@ class RotateTarget:
             # TODO: change the device name to the actual device serial number after attaching a firmware to it
             self.ard_api = ArduinoApi(connection=SerialManager(device=self.ard_id))
         except Exception as e:
-            logging.error('Failed to connect to ard_id: {} and error: {}'.format(self.ard_id, str(e)))
+            logger.error('Failed to connect to ard_id: {} and error: {}'.format(self.ard_id, str(e)))
             raise e
 
     def setup_pin_modes(self):
