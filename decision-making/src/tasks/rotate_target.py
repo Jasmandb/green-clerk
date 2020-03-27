@@ -32,13 +32,15 @@ class RotateTarget:
     def run(self, bin_type):
         self.bin_type = bin_type
         for angle in range(500, BinLocation[self.bin_type] + self.step_size, self.step_size):
-            self.servo.writeMicroseconds(angle)
-            time.sleep(0.01)
+            if 500 <= angle <= 2500:
+                self.servo.writeMicroseconds(angle)
+                time.sleep(0.01)
 
     def roll_back(self):
         for angle in range(BinLocation[self.bin_type], 500 - self.step_size, - self.step_size):
-            self.servo.writeMicroseconds(angle)
-            time.sleep(0.01)
+            if 500 <= angle <= 2500:
+                self.servo.writeMicroseconds(angle)
+                time.sleep(0.01)
 
 
 if __name__ == '__main__':
@@ -55,7 +57,8 @@ if __name__ == '__main__':
             rotate_target1.roll_back()
             time.sleep(2)
         elif test == '2':
-            logger.debug('Moving to bin: {}, {} degrees'.format(Classification.PAPER, BinLocation[Classification.PAPER]))
+            logger.debug(
+                'Moving to bin: {}, {} degrees'.format(Classification.PAPER, BinLocation[Classification.PAPER]))
             rotate_target2 = RotateTarget()
             rotate_target2.run(Classification.PAPER)
             rotate_target2.roll_back()
@@ -69,7 +72,8 @@ if __name__ == '__main__':
             time.sleep(2)
         elif test == '4':
             logger.debug(
-                'Moving to bin: {}, {} degrees'.format(Classification.RECYCLABLES, BinLocation[Classification.RECYCLABLES]))
+                'Moving to bin: {}, {} degrees'.format(Classification.RECYCLABLES,
+                                                       BinLocation[Classification.RECYCLABLES]))
             rotate_target4 = RotateTarget()
             rotate_target4.run(Classification.RECYCLABLES)
             rotate_target4.roll_back()
