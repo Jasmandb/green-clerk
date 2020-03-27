@@ -10,11 +10,11 @@ class RotateTarget:
     def __init__(self):
         self.ard_api = None
         self.ard_id = '/dev/ttyACM0'
+        self.servo = None
+        self.bin_type = None
+        self.step_size = 6
         self.create_connection_channel()
         self.setup_pin_modes()
-        self.bin_type = None
-        self.servo = None
-        self.step_size = 6
 
     def create_connection_channel(self):
         try:
