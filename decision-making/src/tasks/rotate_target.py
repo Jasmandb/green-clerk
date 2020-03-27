@@ -31,7 +31,7 @@ class RotateTarget:
 
     def run(self, bin_type):
         self.bin_type = bin_type
-        self.servo.writeMicroseconds(BinLocation[self.bin_type])
+        self.servo.writeMicroseconds(int(BinLocation[self.bin_type]))
         # for angle in range(500, BinLocation[self.bin_type] + self.step_size, self.step_size):
         #     if 500 <= angle <= 2500:
         #         self.servo.writeMicroseconds(angle)
