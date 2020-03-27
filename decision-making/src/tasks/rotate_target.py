@@ -31,16 +31,18 @@ class RotateTarget:
 
     def run(self, bin_type):
         self.bin_type = bin_type
-        for angle in range(500, BinLocation[self.bin_type] + self.step_size, self.step_size):
-            if 500 <= angle <= 2500:
-                self.servo.writeMicroseconds(angle)
-                time.sleep(0.01)
+        self.servo.writeMicroseconds(BinLocation[self.bin_type])
+        # for angle in range(500, BinLocation[self.bin_type] + self.step_size, self.step_size):
+        #     if 500 <= angle <= 2500:
+        #         self.servo.writeMicroseconds(angle)
+        #         time.sleep(0.01)
 
     def roll_back(self):
-        for angle in range(BinLocation[self.bin_type], 500 - self.step_size, - self.step_size):
-            if 500 <= angle <= 2500:
-                self.servo.writeMicroseconds(angle)
-                time.sleep(0.01)
+        self.servo.writeMicroseconds(500)
+        # for angle in range(BinLocation[self.bin_type], 500 - self.step_size, - self.step_size):
+        #     if 500 <= angle <= 2500:
+        #         self.servo.writeMicroseconds(angle)
+        #         time.sleep(0.01)
 
 
 if __name__ == '__main__':
