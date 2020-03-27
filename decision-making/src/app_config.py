@@ -2,7 +2,7 @@ from enum import Enum, unique
 import logging
 
 logging.basicConfig(format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
-logging.getLogger('nanpy').addHandler(logging.NullHandler())
+logging.getLogger('SerialManager').addHandler(logging.NullHandler())
 
 
 class Constants(int, Enum):
