@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class RotateTarget:
     def __init__(self):
         self.ard_api = None
-        self.ard_id = '/dev/ttyACM1'
+        self.ard_id = '/dev/ttyACM0'
         self.create_connection_channel()
         self.setup_pin_modes()
         self.bin_type = None
@@ -47,18 +47,25 @@ if __name__ == '__main__':
 
     while True:
         logger.debug('Moving to {} degrees'.format(Classification.GARBAGE))
-        RotateTarget().run(Classification.GARBAGE)
-        RotateTarget().roll_back()
+        rotate_target1 = RotateTarget()
+        rotate_target1.run(Classification.GARBAGE)
+        rotate_target1.roll_back()
         time.sleep(1)
+
         logger.debug('Moving to {} degrees'.format(Classification.PAPER))
-        RotateTarget().run(Classification.PAPER)
-        RotateTarget().roll_back()
+        rotate_target2 = RotateTarget()
+        rotate_target2.run(Classification.PAPER)
+        rotate_target2.roll_back()
         time.sleep(1)
+
         logger.debug('Moving to {} degrees'.format(Classification.GLASS))
-        RotateTarget().run(Classification.GLASS)
-        RotateTarget().roll_back()
+        rotate_target3 = RotateTarget()
+        rotate_target3.run(Classification.GLASS)
+        rotate_target3.roll_back()
         time.sleep(1)
+
         logger.debug('Moving to {} degrees'.format(Classification.RECYCLABLES))
-        RotateTarget().run(Classification.RECYCLABLES)
-        RotateTarget().roll_back()
+        rotate_target4 = RotateTarget()
+        rotate_target4.run(Classification.RECYCLABLES)
+        rotate_target4.roll_back()
         time.sleep(1)
