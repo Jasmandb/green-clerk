@@ -9,9 +9,9 @@ logger = logging.getLogger(__name__)
 class RotateTarget:
     def __init__(self):
         self.ard_api = None
+        self.ard_id = '/dev/ttyACM1'
         self.create_connection_channel()
         self.setup_pin_modes()
-        self.ard_id = '/dev/ttyACM1'
         self.bin_type = None
         self.servo = None
         self.step_size = 6
