@@ -10,6 +10,7 @@ class RotateTarget:
         self.ard_api = None
         self.ard_id = '/dev/ttyACM0'
         self.servo = None
+        self.bin_type = None
         self.step_size = 6
         self.create_connection_channel()
         self.setup_motor_obj()
@@ -29,10 +30,11 @@ class RotateTarget:
         logger.debug('Motor pin {}'.format(Pins.SERVO_PINS[0]))
 
     def run(self, bin_type):
-        self.servo.move_to_degrees(int(BinLocation(bin_type)))
+        self.bin_type = bin_type
+        self.servo.move(int(BinLocation(bin_type)), False)
 
     def roll_back(self):
-        self.servo.move_to_degrees(0)
+        self.servo.move(self.bin_type, True)
 
 
 if __name__ == '__main__':
