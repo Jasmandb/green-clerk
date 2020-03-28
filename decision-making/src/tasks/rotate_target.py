@@ -41,34 +41,33 @@ if __name__ == '__main__':
     logger.info('RotateTarget')
     from src.app_config import Classification
 
-    while True:
-        test = input('Enter a number: ')
-        if test == '1':
-            logger.debug(
-                'Moving to bin: {}, {} degrees'.format(Classification.GARBAGE, BinLocation[Classification.GARBAGE]))
-            rotate_target1 = RotateTarget()
-            rotate_target1.run(Classification.GARBAGE)
-            time.sleep(2)
-            rotate_target1.roll_back()
-        elif test == '2':
-            logger.debug(
-                'Moving to bin: {}, {} degrees'.format(Classification.PAPER, BinLocation[Classification.PAPER]))
-            rotate_target2 = RotateTarget()
-            rotate_target2.run(Classification.PAPER)
-            time.sleep(2)
-            rotate_target2.roll_back()
-        elif test == '3':
-            logger.debug(
-                'Moving to bin: {} degrees, {} degrees'.format(Classification.GLASS, BinLocation[Classification.GLASS]))
-            rotate_target3 = RotateTarget()
-            rotate_target3.run(Classification.GLASS)
-            time.sleep(2)
-            rotate_target3.roll_back()
-        elif test == '4':
-            logger.debug(
-                'Moving to bin: {}, {} degrees'.format(Classification.RECYCLABLES,
-                                                       BinLocation[Classification.RECYCLABLES]))
-            rotate_target4 = RotateTarget()
-            rotate_target4.run(Classification.RECYCLABLES)
-            time.sleep(2)
-            rotate_target4.roll_back()
+    test = input('Enter a number: ')
+    if test == '1':
+        logger.debug(
+            'Moving to bin: {}, {} degrees'.format(Classification.GARBAGE, BinLocation[Classification.GARBAGE]))
+        rotate_target1 = RotateTarget()
+        rotate_target1.run(Classification.GARBAGE)
+        time.sleep(2)
+        rotate_target1.roll_back()
+    elif test == '2':
+        logger.debug(
+            'Moving to bin: {}, {} degrees'.format(Classification.PAPER, BinLocation[Classification.PAPER]))
+        rotate_target2 = RotateTarget()
+        rotate_target2.run(Classification.PAPER)
+        time.sleep(2)
+        rotate_target2.roll_back()
+    elif test == '3':
+        logger.debug(
+            'Moving to bin: {} degrees, {} degrees'.format(Classification.GLASS, BinLocation[Classification.GLASS]))
+        rotate_target3 = RotateTarget()
+        rotate_target3.run(Classification.GLASS)
+        time.sleep(2)
+        rotate_target3.roll_back()
+    elif test == '4':
+        logger.debug(
+            'Moving to bin: {}, {} degrees'.format(Classification.RECYCLABLES,
+                                                   BinLocation[Classification.RECYCLABLES]))
+        rotate_target4 = RotateTarget()
+        rotate_target4.run(Classification.RECYCLABLES)
+        time.sleep(2)
+        rotate_target4.roll_back()
