@@ -34,7 +34,7 @@ class RotateTarget:
         self.servo.move(int(BinLocation[bin_type]), False)
 
     def roll_back(self):
-        self.servo.move(self.bin_type, True)
+        self.servo.move(int(BinLocation[self.bin_type]), True)
 
 
 if __name__ == '__main__':
