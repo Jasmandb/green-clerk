@@ -17,7 +17,7 @@ class SensorsManager:
     def create_connection_channel(self):
         try:
             # TODO: change the device name to the actual device serial number after attaching a firmware to it
-            self.ard_api = ArduinoApi(connection=SerialManager(device='/dev/ttyACM1'))
+            self.ard_api = ArduinoApi(connection=SerialManager(device='/dev/ttyUSB0'))
         except Exception as e:
             logging.error('Failed to connect to Arduino {}'.format(str(e)))
             raise e
@@ -39,7 +39,7 @@ class InductiveSensor:
     def __init__(self, ard_api):
         self.num_of_sensors_triggered = 0
         self.ard_api = ard_api
-        self.inductive_pins = defaultdict(self.ard_api.HIGH)
+        self.inductive_pins = defaultdict(lambda: self.ard_api.HIGH)
         self.setup_pin_modes()
         # self.inductive_pins = {2: self.ard_api.HIGH, 3: self.ard_api.HIGH, 4: self.ard_api.HIGH, 5: self.ard_api.HIGH,
         #                        6: self.ard_api.HIGH, 7: self.ard_api.HIGH}
@@ -64,7 +64,7 @@ class CapacitiveSensor:
     def __init__(self, ard_api):
         self.num_of_sensors_triggered = 0
         self.ard_api = ard_api
-        self.capacitive_pins = defaultdict(self.ard_api.HIGH)
+        self.capacitive_pins = defaultdict(lambda: self.ard_api.HIGH)
         self.setup_pin_modes()
         # self.capacitive_pins = {8: self.ard_api.HIGH, 9: self.ard_api.HIGH, 10: self.ard_api.HIGH,
         #                         11: self.ard_api.HIGH, 12: self.ard_api.HIGH, 13: self.ard_api.HIGH}
