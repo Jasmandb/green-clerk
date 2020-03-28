@@ -94,7 +94,7 @@ class WeightSensor:
 
     def store_sensor_readings(self):
         for weight_sensor, data_out_pin in self.weight_sensors:
-            self.value = weight_sensor.get_weight(20)
+            self.value = weight_sensor.get_weight(20) * 1000
             logger.debug('weight sensor with data_out_pin {} read a value of {}'.format(data_out_pin, self.value))
 
     def setup_weight_sensors_obj(self):
