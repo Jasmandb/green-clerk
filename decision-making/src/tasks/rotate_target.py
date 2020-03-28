@@ -1,6 +1,6 @@
 import time
 from src.app_config import Pins, BinLocation, logging
-from nanpy import ArduinoApi, SerialManager, Servo
+from nanpy import ArduinoApi, SerialManager, Motor
 
 logger = logging.getLogger(__name__)
 
@@ -10,10 +10,9 @@ class RotateTarget:
         self.ard_api = None
         self.ard_id = '/dev/ttyACM0'
         self.servo = None
-        self.bin_type = None
         self.step_size = 6
         self.create_connection_channel()
-        self.setup_pin_modes()
+        self.setup_motor_obj()
 
     def create_connection_channel(self):
         try:
@@ -23,26 +22,17 @@ class RotateTarget:
             logger.error('Failed to connect to ard_id: {} and error: {}'.format(self.ard_id, str(e)))
             raise e
 
-    def setup_pin_modes(self):
+    def setup_motor_obj(self):
         # TODO: Since we are not expected to expand our number of motors this class is only coded for one motor
         # TODO: extend to have the ability to expand (I don't think this is necessary though)
-        self.servo = Servo(Pins.SERVO_PINS[0])
-        logger.debug('Servo pin {}'.format(Pins.SERVO_PINS[0]))
+        self.servo = Motor(Pins.SERVO_PINS[0])
+        logger.debug('Motor pin {}'.format(Pins.SERVO_PINS[0]))
 
     def run(self, bin_type):
-        self.bin_type = bin_type
-        self.servo.writeMicroseconds(int(BinLocation[self.bin_type]))
-        # for angle in range(500, BinLocation[self.bin_type] + self.step_size, self.step_size):
-        #     if 500 <= angle <= 2500:
-        #         self.servo.writeMicroseconds(angle)
-        #         time.sleep(0.01)
+        self.servo.move_to_degrees(int(BinLocation(bin_type)))
 
     def roll_back(self):
-        self.servo.writeMicroseconds(500)
-        # for angle in range(BinLocation[self.bin_type], 500 - self.step_size, - self.step_size):
-        #     if 500 <= angle <= 2500:
-        #         self.servo.writeMicroseconds(angle)
-        #         time.sleep(0.01)
+        self.servo.move_to_degrees(0)
 
 
 if __name__ == '__main__':

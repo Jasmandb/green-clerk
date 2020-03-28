@@ -36,10 +36,10 @@ class Classification(str, Enum):
 
 @unique
 class BinLocation(int, Enum):
-    GARBAGE = 504
-    PAPER = 1104
-    GLASS = 1650
-    RECYCLABLES = 2154
+    GARBAGE = 0
+    PAPER = 90
+    GLASS = 180
+    RECYCLABLES = 270
 
 
 @unique
