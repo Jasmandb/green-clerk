@@ -8,9 +8,9 @@ logger = logging.getLogger(__name__)
 class RelayControl:
     def __init__(self):
         self.ard_api = None
+        self.ard_id = '/dev/ttyUSB0'
         self.create_connection_channel()
         self.setup_pin_modes()
-        self.ard_id = '/dev/ttyACM1'
 
     def run(self, state):
         if state == RelayStates.OPEN:
@@ -36,10 +36,10 @@ class RelayControl:
 
 if __name__ == '__main__':
     logger.info('RelayControl')
-    import time
 
     while True:
-        RelayControl().run(RelayStates.OPEN)
-        time.sleep(2)
-        RelayControl().run(RelayStates.CLOSE)
-        time.sleep(2)
+        test = input('Enter a number: ')
+        if test == '1':
+            RelayControl().run(RelayStates.OPEN)
+        else:
+            RelayControl().run(RelayStates.CLOSE)
