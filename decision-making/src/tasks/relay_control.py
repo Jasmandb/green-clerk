@@ -31,7 +31,7 @@ class RelayControl:
     def setup_pin_modes(self):
         # TODO: Since we are not expected to expand our number of relays this class is only coded for one sensor
         # TODO: extend to have the ability to expand (I don't think this is necessary though)
-        self.ard_api.pinMode(Pins.RELAY_PINS, self.ard_api.OUTPUT)
+        self.ard_api.pinMode(Pins.RELAY_PINS[0], self.ard_api.OUTPUT)
 
 
 if __name__ == '__main__':
