@@ -89,8 +89,8 @@ class WeightSensor:
     def __init__(self, ard_api):
         self.value = None
         self.ard_api = ard_api
-        self.setup_weight_sensors_obj()
         self.weight_sensors = []
+        self.setup_weight_sensors_obj()
 
     def store_sensor_readings(self):
         for weight_sensor, data_out_pin in self.weight_sensors:
