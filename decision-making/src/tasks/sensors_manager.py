@@ -100,9 +100,8 @@ class WeightSensor:
             logger.debug('weight sensor with data_out_pin {} read a value of {}'.format(data_out_pin, self.value))
 
     def setup_weight_sensors_obj(self):
-        for data_out_pin, clock_pin, calibration_factor, calibration_factor_mul in Pins.WEIGHT_PINS:
-            self.weight_sensors.append(
-                (Load(data_out_pin, clock_pin, calibration_factor, calibration_factor_mul), data_out_pin))
+        for data_out_pin, clock_pin, calibration_factor in Pins.WEIGHT_PINS:
+            self.weight_sensors.append((Load(data_out_pin, clock_pin, calibration_factor), data_out_pin))
 
 
 if __name__ == '__main__':
