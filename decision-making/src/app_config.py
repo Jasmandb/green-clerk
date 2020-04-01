@@ -2,7 +2,6 @@ from enum import Enum, unique
 import logging
 
 logging.basicConfig(format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
-logging.getLogger('SerialManager').addHandler(logging.NullHandler())
 
 
 class Constants(int, Enum):
@@ -11,6 +10,17 @@ class Constants(int, Enum):
     WEIGHT = 100
     NUM_INDUCTIVE_SENSOR = 6
     NUM_CAPACITIVE_SENSOR = 6
+
+
+@unique
+class Pins(list, Enum):
+    INDUCTIVE_PINS = [2, 3, 4, 5, 6, 7]
+    CAPACITIVE_PINS = [8, 9, 10, 11, 12, 13]
+    ULTRASONIC_PINS = [(9, 8), (5, 4)]
+    IR_PINS = [3]
+    RELAY_PINS = [7]
+    SERVO_PINS = [9]
+    WEIGHT_PINS = [(6, 5, -11061)]
 
 
 @unique
