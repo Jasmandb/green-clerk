@@ -22,6 +22,7 @@ class Drop:
         self.relay_control = RelayControl()
         self.waste = waste
         self.waste.step = Step.DROP
+        self.status = None
 
     def run(self):
         self.rotate_target.run(bin_type=self.waste.type)
