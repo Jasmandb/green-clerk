@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 class SensorsManager:
     def __init__(self):
         self.ard_api = None
+        self.ard_id = '/dev/ttyACM1'
         self.create_connection_channel()
         self.inductive = InductiveSensor(self.ard_api)
         self.capacitive = CapacitiveSensor(self.ard_api)
@@ -17,9 +18,9 @@ class SensorsManager:
     def create_connection_channel(self):
         try:
             # TODO: change the device name to the actual device serial number after attaching a firmware to it
-            self.ard_api = ArduinoApi(connection=SerialManager(device='/dev/ttyUSB0'))
+            self.ard_api = ArduinoApi(connection=SerialManager(device=self.ard_id))
         except Exception as e:
-            logging.error('Failed to connect to Arduino {}'.format(str(e)))
+            logging.error('Failed to connect to ard_id: {} and error: {}'.format(self.ard_id, str(e)))
             raise e
 
     def run(self):

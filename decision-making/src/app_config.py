@@ -18,6 +18,8 @@ class Pins(list, Enum):
     CAPACITIVE_PINS = [8, 9, 10, 11, 12, 13]
     ULTRASONIC_PINS = [(9, 8), (5, 4)]
     IR_PINS = [3]
+    RELAY_PINS = [7]
+    SERVO_PINS = [9]
     WEIGHT_PINS = [(6, 5, -11061)]
 
 
