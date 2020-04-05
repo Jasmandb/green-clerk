@@ -90,7 +90,7 @@ class WeightSensor:
     def __init__(self, ard_api):
         self.value = None
         self.conversion_factor = 1000
-        self.offset = 1020
+        self.offset = -3065
         self.ard_api = ard_api
         self.weight_sensors = []
         self.setup_weight_sensors_obj()
