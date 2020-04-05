@@ -1,5 +1,4 @@
-import logging
-from src.app_config import Waste
+from src.app_config import Waste, logging
 from src.steps.classify import Classify
 from src.steps.drop import Drop
 from src.tasks.item_detection import ItemDetection

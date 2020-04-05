@@ -1,4 +1,4 @@
-import logging
+from src.app_config import logging
 import cv2
 
 logger = logging.getLogger(__name__)

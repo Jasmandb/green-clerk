@@ -1,6 +1,5 @@
-from src.app_config import RelayStates, Pins, Arduino
+from src.app_config import RelayStates, Pins, Arduino, logging
 from nanpy import ArduinoApi, SerialManager
-import logging
 
 logger = logging.getLogger(__name__)
 

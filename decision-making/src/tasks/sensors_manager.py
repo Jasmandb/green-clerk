@@ -1,7 +1,6 @@
-from src.app_config import Constants, Pins, Arduino
+from src.app_config import Constants, Pins, Arduino, logging
 from nanpy import ArduinoApi, SerialManager, Load
 from collections import defaultdict
-import logging
 
 logger = logging.getLogger(__name__)
 

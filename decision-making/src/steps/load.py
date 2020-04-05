@@ -1,5 +1,4 @@
-import src.app_config
-import logging
+from src.app_config import logging
 
 logger = logging.getLogger(__name__)
 

@@ -1,8 +1,7 @@
-from src.app_config import Classification
+from src.app_config import Classification, logging
 from src.tasks.camera_control import CameraControl
 import os
 import time
-import logging
 import numpy as np
 from PIL import Image
 

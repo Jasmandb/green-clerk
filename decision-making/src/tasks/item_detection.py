@@ -1,9 +1,8 @@
 import time
 from copy import deepcopy
 from collections import defaultdict
-from src.app_config import Pins, Arduino
+from src.app_config import Pins, Arduino, logging
 from nanpy import ArduinoApi, SerialManager, Ultrasonic
-import logging
 
 logger = logging.getLogger(__name__)
 

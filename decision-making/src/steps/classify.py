@@ -1,5 +1,4 @@
-from src.app_config import Step, Classification, Constants
-import logging
+from src.app_config import Step, Classification, Constants, logging
 from src.tasks.sensors_manager import SensorsManager
 from src.tasks.computer_vision import ComputerVision
 
