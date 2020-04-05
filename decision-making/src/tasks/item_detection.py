@@ -1,7 +1,7 @@
 import time
 from copy import deepcopy
 from collections import defaultdict
-from src.app_config import Pins
+from src.app_config import Pins, Arduino
 from nanpy import ArduinoApi, SerialManager, Ultrasonic
 import logging
 
@@ -12,6 +12,7 @@ class ItemDetection:
     def __init__(self):
         self.connection = None
         self.ard_api = None
+        self.ard_id = Arduino.ard_3
         self.ultrasonics = []
         self.distance = defaultdict()
         self.first_meas = True
@@ -24,7 +25,7 @@ class ItemDetection:
         try:
             # TODO: change the device name to the actual device serial number after attaching a firmware to it
             logger.debug('Starting a connection with the Arduino')
-            self.connection = SerialManager(device='/dev/ttyACM1')
+            self.connection = SerialManager(device=self.ard_id)
             self.ard_api = ArduinoApi(connection=self.connection)
         except Exception as e:
             logger.error('Failed to connect to Arduino {}'.format(str(e)))

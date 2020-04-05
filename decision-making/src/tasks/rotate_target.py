@@ -1,5 +1,5 @@
 import time
-from src.app_config import Pins, BinLocation, logging
+from src.app_config import Pins, BinLocation, logging, Arduino
 from nanpy import ArduinoApi, SerialManager, Motor
 
 logger = logging.getLogger(__name__)
@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 class RotateTarget:
     def __init__(self):
         self.ard_api = None
-        self.ard_id = '/dev/ttyUSB0'
+        self.ard_id = Arduino.ard_2
         self.servo = None
         self.bin_type = None
         self.step_size = 6

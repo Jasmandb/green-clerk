@@ -20,7 +20,13 @@ class Pins(list, Enum):
     IR_PINS = [3]
     RELAY_PINS = [7]
     SERVO_PINS = [9]
-    WEIGHT_PINS = [(6, 5, -11061)]
+    WEIGHT_PINS = [('A0', 'A1', -11061)]
+
+
+class Arduino(str, Enum):
+    ard_1 = '/dev/ttyACM1'
+    ard_2 = '/dev/ttyUSB0'
+    ard_3 = '/dev/ttyUSB0'
 
 
 @unique

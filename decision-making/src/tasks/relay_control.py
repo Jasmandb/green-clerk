@@ -1,4 +1,4 @@
-from src.app_config import RelayStates, Pins
+from src.app_config import RelayStates, Pins, Arduino
 from nanpy import ArduinoApi, SerialManager
 import logging
 
@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 class RelayControl:
     def __init__(self):
         self.ard_api = None
-        self.ard_id = '/dev/ttyUSB0'
+        self.ard_id = Arduino.ard_3
         self.create_connection_channel()
         self.setup_pin_modes()
 

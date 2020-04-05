@@ -1,4 +1,4 @@
-from src.app_config import Constants, Pins
+from src.app_config import Constants, Pins, Arduino
 from nanpy import ArduinoApi, SerialManager, Load
 from collections import defaultdict
 import logging
@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class SensorsManager:
     def __init__(self):
         self.ard_api = None
-        self.ard_id = '/dev/ttyACM1'
+        self.ard_id = Arduino.ard_1
         self.create_connection_channel()
         self.inductive = InductiveSensor(self.ard_api)
         self.capacitive = CapacitiveSensor(self.ard_api)
