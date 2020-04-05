@@ -78,4 +78,8 @@ class Classify:
 
 
 if __name__ == '__main__':
-    logger.info('hello world')
+    logger.info('classify class')
+    from src.app_config import Waste
+    classify = Classify(Waste())
+
+    classify.run()
