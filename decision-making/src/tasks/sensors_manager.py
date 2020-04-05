@@ -107,4 +107,5 @@ class WeightSensor:
 
 if __name__ == '__main__':
     logger.info('SensorsManager')
-    SensorsManager().run()
+    sensor_manager = SensorsManager()
+    sensor_manager.run()
