@@ -24,8 +24,11 @@ class Drop:
         self.status = None
 
     def run(self):
+        logger.info('Running Drop step with waste type {}'.format(self.waste.type))
         self.rotate_target.run(bin_type=self.waste.type)
+        logger.debug('Opening up relay')
         self.relay_control.run(RelayStates.OPEN)
+        input('Please enter anything when door is closed: ')
         # TODO: Maybe wait a little to confirm item dropped (add IR sensor input here maybe)
         self.relay_control.run(RelayStates.CLOSE)
         self.rotate_target.roll_back()
