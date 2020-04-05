@@ -79,6 +79,7 @@ class Classify:
 if __name__ == '__main__':
     logger.info('classify class')
     from src.app_config import Waste
-    classify = Classify(Waste())
-
+    waste = Waste()
+    classify = Classify(waste)
     classify.run()
+    logger.info('waste_type at classify class {}'.format(waste.type))

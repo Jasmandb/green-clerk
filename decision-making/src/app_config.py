@@ -6,9 +6,9 @@ logging.getLogger("pyserial").setLevel(logging.WARNING)
 
 
 class Constants(int, Enum):
-    INDUCTIVE_SENSOR_THRESHOLD = 1
-    CAPACITIVE_SENSOR_THRESHOLD = 1
-    WEIGHT = 100
+    INDUCTIVE_SENSOR_THRESHOLD = 17
+    CAPACITIVE_SENSOR_THRESHOLD = 17
+    WEIGHT = 136
     NUM_INDUCTIVE_SENSOR = 6
     NUM_CAPACITIVE_SENSOR = 6
 
@@ -21,13 +21,13 @@ class Pins(list, Enum):
     IR_PINS = [3]
     RELAY_PINS = [7]
     SERVO_PINS = [9]
-    WEIGHT_PINS = [('A0', 'A1', -11061)]
+    WEIGHT_PINS = [(14, 15, -1118.5)]
 
 
 class Arduino(str, Enum):
-    ard_1 = '/dev/ttyACM1'
+    ard_1 = '/dev/ttyACM0'
     ard_2 = '/dev/ttyUSB0'
-    ard_3 = '/dev/ttyUSB0'
+    ard_3 = '/dev/ttyUSB1'
 
 
 @unique
