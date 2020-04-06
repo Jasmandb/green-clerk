@@ -54,7 +54,7 @@ class InductiveSensor:
         return (self.num_of_sensors_triggered / Constants.NUM_INDUCTIVE_SENSOR) * 100
 
     def store_sensor_readings(self):
-        for pin in self.inductive_pins:
+        for pin in Pins.INDUCTIVE_PINS:
             temp = self.ard_api.digitalRead(pin)
             logger.debug('inductive_pins[pin]: {}'.format(self.inductive_pins[pin]))
             if temp != self.inductive_pins[pin]:
@@ -81,7 +81,7 @@ class CapacitiveSensor:
         return (self.num_of_sensors_triggered / Constants.NUM_CAPACITIVE_SENSOR) * 100
 
     def store_sensor_readings(self):
-        for pin in self.capacitive_pins:
+        for pin in Pins.CAPACITIVE_PINS:
             temp = self.ard_api.digitalRead(pin)
             if temp != self.capacitive_pins[pin]:
                 if temp == self.ard_api.LOW:
