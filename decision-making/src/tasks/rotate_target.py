@@ -37,6 +37,10 @@ class RotateTarget:
 
     def roll_back(self):
         self.servo.move(int(BinLocation[self.bin_type]), True)
+        self.close_ard_connection()
+
+    def close_ard_connection(self):
+        self.connection.close()
 
 
 if __name__ == '__main__':

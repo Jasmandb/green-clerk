@@ -9,15 +9,17 @@ class SensorsManager:
     def __init__(self):
         self.ard_api = None
         self.ard_id = Arduino.ard_1
+        self.connection = None
         self.create_connection_channel()
         self.inductive = InductiveSensor(self.ard_api)
         self.capacitive = CapacitiveSensor(self.ard_api)
-        self.weight = WeightSensor(self.ard_api)
+        self.weight = WeightSensor(self.ard_api, self.connection)
 
     def create_connection_channel(self):
         try:
             # TODO: change the device name to the actual device serial number after attaching a firmware to it
-            self.ard_api = ArduinoApi(connection=SerialManager(device=self.ard_id))
+            self.connection = SerialManager(device=self.ard_id)
+            self.ard_api = ArduinoApi(connection=self.connection)
         except Exception as e:
             logging.error('Failed to connect to ard_id: {} and error: {}'.format(self.ard_id, str(e)))
             raise e
@@ -86,11 +88,12 @@ class CapacitiveSensor:
 
 
 class WeightSensor:
-    def __init__(self, ard_api):
+    def __init__(self, ard_api, connection):
         self.value = None
         self.conversion_factor = 1000
         self.offset = -2837
         self.ard_api = ard_api
+        self.connection = connection
         self.weight_sensors = []
         self.setup_weight_sensors_obj()
 
@@ -101,7 +104,7 @@ class WeightSensor:
 
     def setup_weight_sensors_obj(self):
         for data_out_pin, clock_pin, calibration_factor in Pins.WEIGHT_PINS:
-            self.weight_sensors.append((Load(data_out_pin, clock_pin, calibration_factor), data_out_pin))
+            self.weight_sensors.append((Load(data_out_pin, clock_pin, calibration_factor, self.connection), data_out_pin))
 
 
 if __name__ == '__main__':
