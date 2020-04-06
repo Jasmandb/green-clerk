@@ -12,13 +12,15 @@ class RotateTarget:
         self.servo = None
         self.bin_type = None
         self.step_size = 6
+        self.connection = None
         self.create_connection_channel()
         self.setup_motor_obj()
 
     def create_connection_channel(self):
         try:
             # TODO: change the device name to the actual device serial number after attaching a firmware to it
-            self.ard_api = ArduinoApi(connection=SerialManager(device=self.ard_id))
+            self.connection = SerialManager(device=self.ard_id)
+            self.ard_api = ArduinoApi(connection=self.connection)
         except Exception as e:
             logger.error('Failed to connect to ard_id: {} and error: {}'.format(self.ard_id, str(e)))
             raise e
@@ -26,7 +28,7 @@ class RotateTarget:
     def setup_motor_obj(self):
         # TODO: Since we are not expected to expand our number of motors this class is only coded for one motor
         # TODO: extend to have the ability to expand (I don't think this is necessary though)
-        self.servo = Motor(Pins.SERVO_PINS[0])
+        self.servo = Motor(Pins.SERVO_PINS[0], self.connection)
         logger.debug('Motor pin {}'.format(Pins.SERVO_PINS[0]))
 
     def run(self, bin_type):
