@@ -35,4 +35,10 @@ class Drop:
 
 
 if __name__ == '__main__':
-    logger.info('hello world')
+    logger.info('dropping class')
+    from src.app_config import Waste, Classification
+    waste = Waste()
+    waste.type = Classification.PLASTIC
+    drop = Drop(waste)
+    drop.run()
+    logger.info('waste_type at classify class {}'.format(waste.type))
