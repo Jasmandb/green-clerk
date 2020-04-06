@@ -56,6 +56,7 @@ class InductiveSensor:
     def store_sensor_readings(self):
         for pin in self.inductive_pins:
             temp = self.ard_api.digitalRead(pin)
+            logger.debug('inductive_pins[pin]: {}'.format(self.inductive_pins[pin]))
             if temp != self.inductive_pins[pin]:
                 if temp == self.ard_api.LOW:
                     self.num_of_sensors_triggered += 1
@@ -110,10 +111,13 @@ class WeightSensor:
 
     def setup_weight_sensors_obj(self):
         for data_out_pin, clock_pin, calibration_factor in Pins.WEIGHT_PINS:
-            self.weight_sensors.append((Load(data_out_pin, clock_pin, calibration_factor, self.connection), data_out_pin))
+            self.weight_sensors.append(
+                (Load(data_out_pin, clock_pin, calibration_factor, self.connection), data_out_pin))
 
 
 if __name__ == '__main__':
     logger.info('SensorsManager')
     sensor_manager = SensorsManager()
     sensor_manager.run()
+    logger.debug('num_of_sensors_triggered: {}, get_percentage_triggered: {}'.format(
+        sensor_manager.inductive.num_of_sensors_triggered, sensor_manager.inductive.get_percentage_triggered()))
