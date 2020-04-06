@@ -20,6 +20,7 @@ class WorkflowManager:
         classify_step.run()
         logger.debug('Classify step is done and the determined the waste type to be {}'.format(self.waste.type))
         drop_step = Drop(self.waste)
+        drop_step.run()
         self.waste.status = drop_step.status
         logger.debug('Dropping step is done with status {} and waiting for a new item'.format(drop_step.status))
 

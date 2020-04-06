@@ -71,7 +71,7 @@ class Classify:
         if not heavy_item and self.computer_vision.type[1] == Classification.PAPER:
             self.waste.type = Classification.PAPER
         elif not heavy_item and self.computer_vision.type[1] == Classification.PLASTIC:
-            self.waste.type = Classification.PLASTIC
+            self.waste.type = Classification.RECYCLABLES
         else:
             self.waste.type = Classification.GARBAGE
 
