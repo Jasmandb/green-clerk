@@ -35,9 +35,10 @@ class RotateTarget:
         self.bin_type = bin_type
         self.servo.move(int(BinLocation[bin_type]), False)
 
-    def roll_back(self):
+    def roll_back(self, close_connection=True):
         self.servo.move(int(BinLocation[self.bin_type]), True)
-        self.close_ard_connection()
+        if close_connection:
+            self.close_ard_connection()
 
     def close_ard_connection(self):
         self.connection.close()

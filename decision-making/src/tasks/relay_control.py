@@ -34,6 +34,9 @@ class RelayControl:
         # TODO: extend to have the ability to expand (I don't think this is necessary though)
         self.ard_api.pinMode(Pins.RELAY_PINS[0], self.ard_api.OUTPUT)
 
+    def close_ard_connection(self):
+        self.connection.close()
+
 
 if __name__ == '__main__':
     logger.info('RelayControl')

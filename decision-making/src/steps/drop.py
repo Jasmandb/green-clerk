@@ -31,6 +31,7 @@ class Drop:
         input('Please enter anything when door is closed: ')
         # TODO: Maybe wait a little to confirm item dropped (add IR sensor input here maybe)
         self.relay_control.run(RelayStates.CLOSE)
+        self.relay_control.close_ard_connection()
         self.rotate_target.roll_back()
 
 
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     logger.info('dropping class')
     from src.app_config import Waste, Classification
     waste = Waste()
-    waste.type = Classification.PLASTIC
+    waste.type = Classification.GLASS
     drop = Drop(waste)
     drop.run()
     logger.info('waste_type at classify class {}'.format(waste.type))
