@@ -32,9 +32,13 @@ class SensorsManager:
             self.capacitive.store_sensor_readings()
             logger.debug('Storing the weight sensors readings')
             self.weight.store_sensor_readings()
+            self.close_ard_connection()
         except Exception as e:
             logging.error('Unexpected Exception while reading the sensors: {}'.format(str(e)))
             raise e
+
+    def close_ard_connection(self):
+        self.connection.close()
 
 
 class InductiveSensor:
