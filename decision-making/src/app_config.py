@@ -21,7 +21,7 @@ class Pins(list, Enum):
     IR_PINS = [3]
     RELAY_PINS = [7]
     SERVO_PINS = [9]
-    WEIGHT_PINS = [(14, 15, -1118.5)]
+    WEIGHT_PINS = [(14, 15, -1096.65)]
 
 
 class Arduino(str, Enum):

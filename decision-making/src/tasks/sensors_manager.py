@@ -60,6 +60,7 @@ class InductiveSensor:
                 if temp == self.ard_api.LOW:
                     self.num_of_sensors_triggered += 1
                 self.inductive_pins[pin] = temp
+        logger.info('Number of inductive sensor triggered {}'.format(self.num_of_sensors_triggered))
 
     def setup_pin_modes(self):
         for pin in Pins.INDUCTIVE_PINS:
@@ -85,6 +86,7 @@ class CapacitiveSensor:
                 if temp == self.ard_api.LOW:
                     self.num_of_sensors_triggered += 1
                 self.capacitive_pins[pin] = temp
+        logger.info('Number of capacitive sensor triggered {}'.format(self.num_of_sensors_triggered))
 
     def setup_pin_modes(self):
         for pin in Pins.CAPACITIVE_PINS:
@@ -95,7 +97,7 @@ class WeightSensor:
     def __init__(self, ard_api, connection):
         self.value = None
         self.conversion_factor = 1000
-        self.offset = -2837
+        self.offset = -3024
         self.ard_api = ard_api
         self.connection = connection
         self.weight_sensors = []
