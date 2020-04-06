@@ -64,6 +64,10 @@ class ItemDetection:
                 if self.ard_api.digitalRead(ir_pin) == self.ard_api.LOW:
                     self.item_detected = True
                     logger.debug('IR sensor detected an item')
+        self.close_ard_connection()
+
+    def close_ard_connection(self):
+        self.connection.close()
 
 
 if __name__ == '__main__':
