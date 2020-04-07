@@ -10,10 +10,10 @@ class RelayControl:
         self.relay = None
         self.ard_id = Arduino.ard_3
         self.connection = None
-        self.create_connection_channel()
-        self.setup_relay_obj()
 
     def run(self, state):
+        self.create_connection_channel()
+        self.setup_relay_obj()
         if state == RelayStates.OPEN:
             logger.debug('Opening the lid requested state is {}'.format(state))
             # self.ard_api.digitalWrite(Pins.RELAY_PINS[0], self.ard_api.LOW)
@@ -21,7 +21,7 @@ class RelayControl:
         else:
             logger.debug('Closing the lid requested state is state {}'.format(state))
             self.ard_api.digitalWrite(Pins.RELAY_PINS[0], self.ard_api.HIGH)
-            self.relay.close()
+        self.relay.close()
 
     def create_connection_channel(self):
         try:
