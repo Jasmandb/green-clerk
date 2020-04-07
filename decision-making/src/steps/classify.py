@@ -18,7 +18,7 @@ class Classify:
         self.computer_vision.run()
         self.sensors_manager.run()
         if self.sensors_manager.inductive.get_percentage_triggered() > Constants.INDUCTIVE_SENSOR_THRESHOLD:
-            self.waste.type = Classification.METAL
+            self.waste.type = Classification.RECYCLABLES
             return
 
         if self.sensors_manager.inductive.get_percentage_triggered() != 0:
