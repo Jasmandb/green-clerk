@@ -1,3 +1,4 @@
+import time
 from src.app_config import Step, RelayStates, logging
 from src.tasks.relay_control import RelayControl
 from src.tasks.rotate_target import RotateTarget
@@ -26,6 +27,7 @@ class Drop:
     def run(self):
         logger.info('Running Drop step with waste type {}'.format(self.waste.type))
         self.rotate_target.run(bin_type=self.waste.type)
+        time.sleep(1)
         logger.debug('Opening up relay')
         self.relay_control.run(RelayStates.OPEN)
         input('Please enter anything when door is closed: ')
@@ -38,6 +40,7 @@ class Drop:
 if __name__ == '__main__':
     logger.info('dropping class')
     from src.app_config import Waste, Classification
+
     waste = Waste()
     waste.type = Classification.GLASS
     drop = Drop(waste)
