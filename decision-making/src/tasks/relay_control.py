@@ -20,8 +20,9 @@ class RelayControl:
             self.relay.open()
         else:
             logger.debug('Closing the lid requested state is state {}'.format(state))
-            self.ard_api.digitalWrite(Pins.RELAY_PINS[0], self.ard_api.HIGH)
-        self.relay.close()
+            # self.ard_api.digitalWrite(Pins.RELAY_PINS[0], self.ard_api.HIGH)
+            self.relay.close()
+        self.close_ard_connection()
 
     def create_connection_channel(self):
         try:
