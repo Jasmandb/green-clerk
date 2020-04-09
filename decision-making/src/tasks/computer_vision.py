@@ -56,6 +56,11 @@ class ComputerVision:
         results = np.squeeze(output_data)
 
         top_k = results.argsort()[-5:][::-1]
+        for i in top_k:
+            if floating_model:
+                logger.debug('{:08.6f}: {}'.format(float(results[i]), self.labels[i]))
+            else:
+                logger.debug('{:08.6f}: {}'.format(float(results[i] / 255.0), self.labels[i]))
         if floating_model:
             self.type[1] = Classification[self.labels[top_k[0]].upper()]
             self.type[2] = Classification[self.labels[top_k[1]].upper()] if self.within_ten_percent(
