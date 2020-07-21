@@ -24,7 +24,7 @@ class ComputerVision:
     def run(self):
         logger.debug('taking a picture and classifying it with computer vision')
         start_time = time.time()
-        self.camera_control.take_picture()
+        self.camera_control.take_picture_picam()
         self.image_location = self.camera_control.image_location
 
         start_time2 = time.time()
