@@ -24,10 +24,12 @@ class Pins(list, Enum):
     WEIGHT_PINS = [(14, 15, -1096.65)]
 
 
-class Arduino(str, Enum):
-    ard_1 = '/dev/ttyACM0'
-    ard_2 = '/dev/ttyUSB0'
-    ard_3 = '/dev/ttyUSB1'
+Arduino = {'item_detection': None, 'classification_sensors': None}
+
+
+@unique
+class ArduinoArsojaID(str, Enum):
+    Arsoja_Arduino_2308_6030 = 'item_detection'
 
 
 @unique
