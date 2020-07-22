@@ -24,11 +24,7 @@ class Pins(list, Enum):
     WEIGHT_PINS = [(14, 15, -1096.65)]
 
 
-@unique
-class Arduino(str, Enum):
-    item_detection = None
-    ard_2 = '/dev/ttyUSB0'
-    ard_3 = '/dev/ttyUSB1'
+Arduino = {'item_detection': None, 'classification_sensors': None}
 
 
 @unique

@@ -1,5 +1,5 @@
 from src.app_config import Arduino, logging, ArduinoArsojaID
-from nanpy import ArduinoApi, SerialManager, EEPROMController
+from nanpy import ArduinoApi, SerialManager, EEPROMCont
 from serial.tools import list_ports
 
 logger = logging.getLogger(__name__)
@@ -22,9 +22,11 @@ class ArduinoManager:
             self.setup_EEPROM_obj()
             arsoja_id = self.eeprom.get_id()
             arsoja_id = arsoja_id.replace('-', '_')
-            if arsoja_id not in ArduinoArsojaID:
-                logger.error('Failed to find the arsoja_id: {} in known Arduinos'.format(arsoja_id))
-            Arduino[ArduinoArsojaID[arsoja_id]] = self.ard_id
+            try:
+                Arduino[ArduinoArsojaID[arsoja_id]] = self.ard_id
+            except Exception as e:
+                logger.error('Failed to find the arsoja_id: {} in known Arduinos with error {}'.format(arsoja_id, e))
+                raise e
             self.close_ard_connection()
 
     def get_ard_devices(self):
@@ -34,7 +36,7 @@ class ArduinoManager:
                 self.ard_devices.add(usb_device.device)
 
     def setup_EEPROM_obj(self):
-        self.eeprom = EEPROMController()
+        self.eeprom = EEPROMCont(self.connection)
 
     def create_connection_channel(self):
         try:
@@ -49,7 +51,7 @@ class ArduinoManager:
 
 
 if __name__ == '__main__':
-    # test 1: print all the ard devices
+    # test: print all the ard devices
     ard_manager = ArduinoManager()
     ard_manager.run()
-    print('Test item detection {}'.format(Arduino.item_detection))
+    print('Test item detection {}'.format(Arduino['item_detection']))
