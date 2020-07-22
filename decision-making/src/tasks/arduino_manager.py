@@ -1,5 +1,5 @@
-from src.app_config import Arduino, logging
-from nanpy import ArduinoApi, SerialManager
+from src.app_config import Arduino, logging, ArduinoArsojaID
+from nanpy import ArduinoApi, SerialManager, EEPROMController
 from serial.tools import list_ports
 
 logger = logging.getLogger(__name__)
@@ -8,7 +8,6 @@ logger = logging.getLogger(__name__)
 class ArduinoManager:
 
     def __init__(self):
-        self.EEPROM_SIZE = 1024
         self.ard_api = None
         self.ard_id = None
         self.connection = None
@@ -16,23 +15,26 @@ class ArduinoManager:
         self.ard_devices = set()
 
     def run(self):
+        self.get_ard_devices()
         for ard_device in self.ard_devices:
-            # 1) need to get the id from the firmware
-            # 2) assign the id to the right name
-            # 3) do the following for each device
-            # 4) Do not forget to close the connection
+            self.ard_id = ard_device
             self.create_connection_channel()
-            self.setup_relay_obj()
-            pass
+            self.setup_EEPROM_obj()
+            arsoja_id = self.eeprom.get_id()
+            arsoja_id = arsoja_id.replace('-', '_')
+            if arsoja_id not in ArduinoArsojaID:
+                logger.error('Failed to find the arsoja_id: {} in known Arduinos'.format(arsoja_id))
+            Arduino[ArduinoArsojaID[arsoja_id]] = self.ard_id
+            self.close_ard_connection()
 
-    def enumerate_serial_devices(self):
+    def get_ard_devices(self):
         usb_devices = list_ports.comports()
         for usb_device in usb_devices:
             if 'USB' in usb_device.name or 'ACM' in usb_device.name:
                 self.ard_devices.add(usb_device.device)
 
-    def setup_relay_obj(self):
-        self.eeprom = None
+    def setup_EEPROM_obj(self):
+        self.eeprom = EEPROMController()
 
     def create_connection_channel(self):
         try:
@@ -49,5 +51,5 @@ class ArduinoManager:
 if __name__ == '__main__':
     # test 1: print all the ard devices
     ard_manager = ArduinoManager()
-    ard_manager.enumerate_serial_devices()
-    print('Ard devices found {}'.format(ard_manager.ard_devices))
+    ard_manager.run()
+    print('Test item detection {}'.format(Arduino.item_detection))

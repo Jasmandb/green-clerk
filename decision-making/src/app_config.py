@@ -24,10 +24,16 @@ class Pins(list, Enum):
     WEIGHT_PINS = [(14, 15, -1096.65)]
 
 
+@unique
 class Arduino(str, Enum):
-    ard_1 = '/dev/ttyACM0'
+    item_detection = None
     ard_2 = '/dev/ttyUSB0'
     ard_3 = '/dev/ttyUSB1'
+
+
+@unique
+class ArduinoArsojaID(str, Enum):
+    Arsoja_Arduino_2308_6030 = 'item_detection'
 
 
 @unique
