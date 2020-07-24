@@ -81,7 +81,7 @@ class Step(str, Enum):
 
 
 @unique
-class RelayStates(str, Enum):
+class States(str, Enum):
     OPEN = "OPEN"
     CLOSE = "CLOSE"
 

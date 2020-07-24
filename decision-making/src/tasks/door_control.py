@@ -4,7 +4,7 @@ from nanpy import ArduinoApi, SerialManager, Relay
 logger = logging.getLogger(__name__)
 
 
-class RelayControl:
+class DoorControl:
     def __init__(self):
         self.ard_api = None
         self.relay = None
@@ -14,10 +14,13 @@ class RelayControl:
     def run(self, state):
         self.create_connection_channel()
         self.setup_relay_obj()
-        logger.debug('The requested state is {}'.format(state))
         if state == States.OPEN:
+            logger.debug('Opening the door requested state is {}'.format(state))
+            # self.ard_api.digitalWrite(Pins.RELAY_PINS[0], self.ard_api.LOW)
             self.relay.open()
         else:
+            logger.debug('Closing the door requested state is state {}'.format(state))
+            # self.ard_api.digitalWrite(Pins.RELAY_PINS[0], self.ard_api.HIGH)
             self.relay.close()
         self.close_ard_connection()
 
@@ -31,20 +34,18 @@ class RelayControl:
             raise e
 
     def setup_relay_obj(self):
-        # TODO: Since we are not expected to expand our number of relays this class is only coded for one sensor
-        # TODO: extend to have the ability to expand (I don't think this is necessary though)
-        self.relay = Relay(Pins.RELAY_PINS[0], self.connection)
+        pass
 
     def close_ard_connection(self):
         self.connection.close()
 
 
 if __name__ == '__main__':
-    logger.info('RelayControl')
+    logger.info('DoorControl')
 
     while True:
         test = input('Enter a number: ')
         if test == '1':
-            RelayControl().run(States.OPEN)
+            DoorControl().run(States.OPEN)
         else:
-            RelayControl().run(States.CLOSE)
+            DoorControl().run(States.CLOSE)
