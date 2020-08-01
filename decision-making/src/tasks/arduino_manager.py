@@ -54,4 +54,4 @@ if __name__ == '__main__':
     # test: print all the ard devices
     ard_manager = ArduinoManager()
     ard_manager.run()
-    print('Test item detection {}'.format(Arduino['item_detection']))
+    logger.debug('Test item detection {}'.format(Arduino['item_detection']))

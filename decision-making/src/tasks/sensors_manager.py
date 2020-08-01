@@ -1,28 +1,17 @@
-from src.app_config import Constants, Pins, Arduino, logging
-from nanpy import ArduinoApi, SerialManager, Load
+from src.app_config import Constants, Pins, logging
+from nanpy import Load
 from collections import defaultdict
 
 logger = logging.getLogger(__name__)
 
 
 class SensorsManager:
-    def __init__(self):
-        self.ard_api = None
-        self.ard_id = Arduino.ard_1
-        self.connection = None
-        self.create_connection_channel()
+    def __init__(self, ard_api, connection):
+        self.ard_api = ard_api
+        self.connection = connection
         self.inductive = InductiveSensor(self.ard_api)
         self.capacitive = CapacitiveSensor(self.ard_api)
         self.weight = WeightSensor(self.ard_api, self.connection)
-
-    def create_connection_channel(self):
-        try:
-            # TODO: change the device name to the actual device serial number after attaching a firmware to it
-            self.connection = SerialManager(device=self.ard_id)
-            self.ard_api = ArduinoApi(connection=self.connection)
-        except Exception as e:
-            logging.error('Failed to connect to ard_id: {} and error: {}'.format(self.ard_id, str(e)))
-            raise e
 
     def run(self):
         try:
@@ -32,13 +21,9 @@ class SensorsManager:
             self.capacitive.store_sensor_readings()
             logger.debug('Storing the weight sensors readings')
             self.weight.store_sensor_readings()
-            self.close_ard_connection()
         except Exception as e:
-            logging.error('Unexpected Exception while reading the sensors: {}'.format(str(e)))
+            logger.error('Unexpected Exception while reading the sensors: {}'.format(str(e)))
             raise e
-
-    def close_ard_connection(self):
-        self.connection.close()
 
 
 class InductiveSensor:
@@ -116,8 +101,15 @@ class WeightSensor:
 
 
 if __name__ == '__main__':
+    from src.tasks.communication_manager import CommunicationManager
+
+    logger.debug('starting new arduino connection')
+    communication_manager = CommunicationManager('/dev/ttyUSB0')
     logger.info('SensorsManager')
-    sensor_manager = SensorsManager()
+    sensor_manager = SensorsManager(communication_manager.ard_api, communication_manager.connection)
     sensor_manager.run()
-    logger.debug('num_of_sensors_triggered: {}, get_percentage_triggered: {}'.format(
-        sensor_manager.inductive.num_of_sensors_triggered, sensor_manager.inductive.get_percentage_triggered()))
+    logger.debug('num_of_ind_sensors_triggered: {}, num_of_cap_sensors_triggered: {} weight_value: {}'.format(
+        sensor_manager.inductive.num_of_sensors_triggered, sensor_manager.capacitive.num_of_sensors_triggered,
+        sensor_manager.weight.value))
+    logger.debug('closing the arduino connection')
+    communication_manager.close_ard_connection()
