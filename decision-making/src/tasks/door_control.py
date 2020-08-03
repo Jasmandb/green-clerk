@@ -1,25 +1,25 @@
 from src.app_config import States, Pins, Arduino, logging
-from nanpy import ArduinoApi, SerialManager, Relay
+from nanpy import ArduinoApi, SerialManager, DoorCont
 
 logger = logging.getLogger(__name__)
 
 
-class RelayControl:
-    def __init__(self, pin=None):
+class DoorControl:
+    def __init__(self):
         self.ard_api = None
-        self.pin = None
-        self.relay = None
+        self.door_control = None
         self.ard_id = Arduino.ard_3
         self.connection = None
 
     def run(self, state):
         self.create_connection_channel()
-        self.setup_relay_obj()
-        logger.debug('The requested state is {}'.format(state))
+        self.setup_door_control_obj()
         if state == States.OPEN:
-            self.relay.open()
+            logger.debug('Opening the door requested state is {}'.format(state))
+            self.door_control.open_door()
         else:
-            self.relay.close()
+            logger.debug('Closing the door requested state is state {}'.format(state))
+            self.door_control.close_door()
         self.close_ard_connection()
 
     def create_connection_channel(self):
@@ -31,19 +31,19 @@ class RelayControl:
             logging.error('Failed to connect to ard_id: {} and error: {}'.format(self.ard_id, str(e)))
             raise e
 
-    def setup_relay_obj(self):
-        self.relay = Relay(self.pin, self.connection)
+    def setup_door_control_obj(self):
+        self.door_control = DoorCont(Pins.DOOR[0], Pins.DOOR[1], Pins.DOOR[2], self.connection)
 
     def close_ard_connection(self):
         self.connection.close()
 
 
 if __name__ == '__main__':
-    logger.info('RelayControl')
+    logger.info('DoorControl')
 
     while True:
         test = input('Enter a number: ')
         if test == '1':
-            RelayControl().run(States.OPEN)
+            DoorControl().run(States.OPEN)
         else:
-            RelayControl().run(States.CLOSE)
+            DoorControl().run(States.CLOSE)

@@ -23,6 +23,7 @@ class Pins(list, Enum):
     # RELAY_PINS = [7]
     SERVO_PINS = [9]
     WEIGHT_PINS = [(14, 15, -1096.65)]
+    DOOR = [9, 13, 8]
 
 
 Arduino = {'item_detection': None, 'classification_sensors': None}
@@ -82,7 +83,7 @@ class Step(str, Enum):
 
 
 @unique
-class RelayStates(str, Enum):
+class States(str, Enum):
     OPEN = "OPEN"
     CLOSE = "CLOSE"
 

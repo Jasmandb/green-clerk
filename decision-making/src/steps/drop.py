@@ -1,6 +1,7 @@
-from src.app_config import Step, RelayStates, logging
+from src.app_config import Step, States, logging
 from src.tasks.relay_control import RelayControl
 from src.tasks.rotate_target import RotateTarget
+import time
 
 logger = logging.getLogger(__name__)
 
@@ -26,11 +27,12 @@ class Drop:
     def run(self):
         logger.info('Running Drop step with waste type {}'.format(self.waste.type))
         self.rotate_target.run(bin_type=self.waste.type)
-        logger.debug('Opening up relay')
-        self.relay_control.run(RelayStates.OPEN)
-        input('Please enter anything when door is closed: ')
-        # TODO: Maybe wait a little to confirm item dropped (add IR sensor input here maybe)
-        self.relay_control.run(RelayStates.CLOSE)
+        logger.debug('Opening up door')
+        self.door_control.run(States.OPEN)
+        time.sleep(2) # 2 second delay for item to drop. May need to modify this
+        logger.debug('Closing door')
+        self.door_control.run(States.CLOSE)
+        # TODO: Check if waste bin is full (add IR sensor input here)
         self.rotate_target.roll_back()
 
 
