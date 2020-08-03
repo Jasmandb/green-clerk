@@ -24,7 +24,7 @@ class Pins(list, Enum):
     WEIGHT_PINS = [(14, 15, -1096.65)]
 
 
-Arduino = {'item_detection': None, 'classification_sensors': None}
+Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
 
 
 @unique

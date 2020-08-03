@@ -1,4 +1,5 @@
-from src.app_config import Step, RelayStates, logging
+from src.app_config import Step, RelayStates, logging, Arduino
+from src.tasks.communication_manager import CommunicationManager
 from src.tasks.relay_control import RelayControl
 from src.tasks.rotate_target import RotateTarget
 
@@ -17,8 +18,9 @@ Need the following steps:
 
 class Drop:
     def __init__(self, waste):
-        self.rotate_target = RotateTarget()
-        self.relay_control = RelayControl()
+        self.com_manager = CommunicationManager(Arduino['mechanical'])
+        self.rotate_target = RotateTarget(self.com_manager.connection)
+        self.relay_control = RelayControl(self.com_manager.connection)
         self.waste = waste
         self.waste.step = Step.DROP
         self.status = None

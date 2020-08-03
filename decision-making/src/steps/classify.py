@@ -1,4 +1,5 @@
-from src.app_config import Step, Classification, Constants, logging
+from src.app_config import Step, Classification, Constants, logging, Arduino
+from src.tasks.communication_manager import CommunicationManager
 from src.tasks.sensors_manager import SensorsManager
 from src.tasks.computer_vision import ComputerVision
 
@@ -7,7 +8,8 @@ logger = logging.getLogger(__name__)
 
 class Classify:
     def __init__(self, waste):
-        self.sensors_manager = SensorsManager()
+        self.com_manager = CommunicationManager(Arduino['classification_sensors'])
+        self.sensors_manager = SensorsManager(self.com_manager.ard_api, self.com_manager.connection)
         self.computer_vision = ComputerVision()
         self.waste = waste
         self.waste.step = Step.CLASSIFY
@@ -17,6 +19,7 @@ class Classify:
         logger.info('Running the classifying class')
         self.computer_vision.run()
         self.sensors_manager.run()
+        self.com_manager.close_ard_connection()
         if self.sensors_manager.inductive.get_percentage_triggered() > Constants.INDUCTIVE_SENSOR_THRESHOLD:
             self.waste.type = Classification.RECYCLABLES
             return
