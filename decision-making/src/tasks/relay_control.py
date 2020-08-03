@@ -1,5 +1,3 @@
-from src.app_config import RelayStates, Pins, logging
-from nanpy import Relay
 from src.app_config import States, logging
 from nanpy import Relay
 
@@ -7,14 +5,13 @@ logger = logging.getLogger(__name__)
 
 
 class RelayControl:
-    def __init__(self, pin=None, connection):
+    def __init__(self, connection, pin=None):
         self.ard_api = None
         self.pin = None
         self.relay = None
         self.connection = connection
 
     def run(self, state):
-        self.create_connection_channel()
         self.setup_relay_obj()
         logger.debug('The requested state is {}'.format(state))
         if state == States.OPEN:
@@ -36,6 +33,6 @@ if __name__ == '__main__':
     while True:
         test = input('Enter a number: ')
         if test == '1':
-            RelayControl().run(RelayStates.OPEN)
+            RelayControl(communication_manager.connection, 5).run(States.OPEN)
         else:
-            RelayControl().run(RelayStates.CLOSE)
+            RelayControl(communication_manager.connection, 5).run(States.CLOSE)
