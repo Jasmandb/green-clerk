@@ -1,5 +1,4 @@
-from src.app_config import Step, RelayStates, logging, Arduino
-from src.tasks.communication_manager import CommunicationManager
+from src.app_config import Step, RelayStates, logging
 from src.tasks.relay_control import RelayControl
 from src.tasks.rotate_target import RotateTarget
 

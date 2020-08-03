@@ -1,5 +1,7 @@
 from src.app_config import logging
 import cv2
+from time import sleep
+from picamera import PiCamera
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +28,18 @@ class CameraControl:
             logger.debug('webcam connection closed')
         except Exception as e:
             logger.error('Failed to access the webcam with exception {}'.format(str(e)))
+            raise e
+
+    def take_picture_picam(self):
+        try:
+            camera = PiCamera()
+            camera.resolution = (1024, 768)
+            camera.start_preview()
+            sleep(2)  # Camera warm-up time
+            camera.capture(self.image_location, resize=(320, 240))
+            camera.stop_preview()
+        except Exception as e:
+            logger.error('Failed to access the webcam with exception {}'.format(e))
             raise e
 
 
