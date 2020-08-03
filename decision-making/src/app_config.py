@@ -19,7 +19,8 @@ class Pins(list, Enum):
     CAPACITIVE_PINS = [8, 9, 10, 11, 12, 13]
     ULTRASONIC_PINS = [(9, 8), (5, 4)]
     IR_PINS = [3]
-    RELAY_PINS = [7]
+    # TODO: Add individual pin for FLASh and LED, maybe a magnet as well
+    # RELAY_PINS = [7]
     SERVO_PINS = [9]
     WEIGHT_PINS = [(14, 15, -1096.65)]
     DOOR = [9, 13, 8]
