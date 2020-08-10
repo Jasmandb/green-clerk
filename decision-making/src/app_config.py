@@ -21,12 +21,13 @@ class Pins(list, Enum):
     IR_PINS = [3]
     # TODO: Add individual pin for FLASh and LED, maybe a magnet as well
     # RELAY_PINS = [7]
+    FLASH_PIN = [7]
     SERVO_PINS = [9]
-    WEIGHT_PINS = [(14, 15, -1096.65)]
+    WEIGHT_PINS = [(14, 15, -277.2165)]
     DOOR = [9, 13, 8]
 
 
-Arduino = {'item_detection': None, 'classification_sensors': None}
+Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
 
 
 @unique
