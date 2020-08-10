@@ -6,8 +6,7 @@ logger = logging.getLogger(__name__)
 
 class RelayControl:
     def __init__(self, connection, pin=None):
-        self.ard_api = None
-        self.pin = None
+        self.pin = pin
         self.relay = None
         self.connection = connection
 

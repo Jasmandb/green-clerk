@@ -19,10 +19,6 @@ class ItemDetection:
         self.setup_pin_modes()
 
     def setup_pin_modes(self):
-        for ping_pin, echo_pin in Pins.ULTRASONIC_PINS:
-            self.ard_api.pinMode(ping_pin, self.ard_api.OUTPUT)
-            self.ard_api.pinMode(echo_pin, self.ard_api.INPUT)
-
         for ir_pin in Pins.IR_PINS:
             self.ard_api.pinMode(ir_pin, self.ard_api.INPUT)
             self.ard_api.digitalWrite(ir_pin, self.ard_api.HIGH)
