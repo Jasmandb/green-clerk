@@ -1,25 +1,17 @@
-from src.app_config import Step, RelayStates, logging
-from src.tasks.relay_control import RelayControl
+from src.app_config import Step, States, logging, Arduino
+from src.tasks.communication_manager import CommunicationManager
+from src.tasks.door_control import DoorControl
 from src.tasks.rotate_target import RotateTarget
+import time
 
 logger = logging.getLogger(__name__)
-
-# TODO: COMPLETE THE DROP CLASS
-
-'''
-Need the following steps:
- - Rotate to Target position applicable
- - Open the door to drop the item
- - Close the door 
- - Rotate to home position if applicable
-'''
 
 
 class Drop:
     def __init__(self, waste):
         self.com_manager = CommunicationManager(Arduino['mechanical'])
+        self.door_control = DoorControl(self.com_manager.connection)
         self.rotate_target = RotateTarget(self.com_manager.connection)
-        self.relay_control = RelayControl(self.com_manager.connection)
         self.waste = waste
         self.waste.step = Step.DROP
         self.status = None
@@ -27,11 +19,12 @@ class Drop:
     def run(self):
         logger.info('Running Drop step with waste type {}'.format(self.waste.type))
         self.rotate_target.run(bin_type=self.waste.type)
-        logger.debug('Opening up relay')
-        self.relay_control.run(RelayStates.OPEN)
-        input('Please enter anything when door is closed: ')
-        # TODO: Maybe wait a little to confirm item dropped (add IR sensor input here maybe)
-        self.relay_control.run(RelayStates.CLOSE)
+        logger.debug('Opening up door')
+        self.door_control.run(States.OPEN)
+        time.sleep(2)  # 2 second delay for item to drop. May need to modify this
+        logger.debug('Closing door')
+        self.door_control.run(States.CLOSE)
+        # TODO: Check if waste bin is full
         self.rotate_target.roll_back()
 
 

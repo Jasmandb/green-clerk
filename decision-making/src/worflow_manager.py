@@ -12,7 +12,7 @@ class WorkflowManager:
     def __init__(self):
         pass
 
-    # 1) detect if new item is inserted
+    # 1) detect if new item is ins1erted
     # 2) classify the item
     # 3) Drop the item
     def start(self):

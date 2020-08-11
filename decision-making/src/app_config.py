@@ -15,16 +15,14 @@ class Constants(int, Enum):
 
 @unique
 class Pins(list, Enum):
-    INDUCTIVE_PINS = [2, 3, 4, 5, 6, 7]
-    CAPACITIVE_PINS = [8, 9, 10, 11, 12, 13]
-    ULTRASONIC_PINS = [(9, 8), (5, 4)]
-    IR_PINS = [3]
-    # TODO: Add individual pin for FLASh and LED, maybe a magnet as well
-    # RELAY_PINS = [7]
-    FLASH_PIN = [7]
-    SERVO_PINS = [9]
-    WEIGHT_PINS = [(14, 15, -277.2165)]
-    DOOR = [9, 13, 8]
+    INDUCTIVE_PINS = [7, 8, 9, 10, 11, 12]
+    CAPACITIVE_PINS = [1, 2, 3, 4, 5, 6]
+    ULTRASONIC_PINS = [(8, 7), (6, 5)]
+    IR_PINS = [9]
+    FLASH_PIN = [13]
+    SERVO_PINS = [3]
+    WEIGHT_PINS = [(15, 14, -259.80)]
+    DOOR = [11, 12, 10]
 
 
 Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
@@ -33,6 +31,7 @@ Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': No
 @unique
 class ArduinoArsojaID(str, Enum):
     Arsoja_Arduino_2308_6030 = 'item_detection'
+    Arsoja_Arduino_9810_2147 = 'classification_sensors'
 
 
 @unique
