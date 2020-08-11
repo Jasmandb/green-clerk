@@ -32,7 +32,7 @@ Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': No
 class ArduinoArsojaID(str, Enum):
     Arsoja_Arduino_2308_6030 = 'detect_item'
     Arsoja_Arduino_9810_2147 = 'classification_sensors'
-    Arsoja_Arduino_test_test = 'mechanical'
+    Arsoja_Arduino_6622_9017 = 'mechanical'
 
 
 @unique
