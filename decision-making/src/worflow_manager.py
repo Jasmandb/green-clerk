@@ -18,6 +18,8 @@ class WorkflowManager:
     def start(self):
         arduino_manager = ArduinoManager()
         arduino_manager.run()
+        self.confirm_door_closed()
+
         while True:
             logger.debug('Running Item Detection')
             com_manager = CommunicationManager(Arduino['detect_item'])
@@ -32,7 +34,15 @@ class WorkflowManager:
             drop_step = Drop(waste)
             drop_step.run()
             waste.status = drop_step.status
+            if drop_step.system_hold:
+                self.wait_until_bins_empty()
             logger.debug('Dropping step is done with status {} and waiting for a new item'.format(drop_step.status))
+
+    def confirm_door_closed(self):
+        pass
+
+    def wait_until_bins_empty(self):
+        pass
 
 
 if __name__ == '__main__':

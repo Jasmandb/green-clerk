@@ -25,6 +25,8 @@ class Pins(list, Enum):
     WEIGHT_PINS = [(15, 14, -259.8)]
     DOOR = [11, 12, 10]
     BIN_ULTRASONIC_PINS = [(6, 7), (8, 9), (10, 11), (12, 13)]
+    BIN_LEVEL_LIGHT = [(0, 0)]
+    SYSTEM_LIGHT = [(0, 0)]
 
 
 Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
