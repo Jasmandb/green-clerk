@@ -1,4 +1,5 @@
 from src.app_config import Step, Classification, Constants, logging, Arduino
+from src.tasks.arduino_manager import ArduinoManager
 from src.tasks.communication_manager import CommunicationManager
 from src.tasks.sensors_manager import SensorsManager
 from src.tasks.computer_vision import ComputerVision
@@ -82,6 +83,8 @@ class Classify:
 if __name__ == '__main__':
     logger.info('classify class')
     from src.app_config import Waste
+    arduino_manager = ArduinoManager()
+    arduino_manager.run()
     waste = Waste()
     classify = Classify(waste)
     classify.run()
