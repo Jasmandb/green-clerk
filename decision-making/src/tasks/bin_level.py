@@ -15,7 +15,7 @@ class BinLevel:
         self.bin_limit = Constants.BIN_ULTRASONIC_FULL_LEVEL
 
     def setup_ultrasonic_obj(self):
-        for ping_pin, echo_pin in Pins.BIN_ULTRASONIC_PINS:
+        for echo_pin, ping_pin in Pins.BIN_ULTRASONIC_PINS:
             self.ultrasonics.append((Ultrasonic(echo_pin, ping_pin, False, connection=self.connection), ping_pin))
 
     def run(self):
