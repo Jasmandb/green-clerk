@@ -10,8 +10,7 @@ class BinLevel:
     def __init__(self, connection):
         self.connection = connection
         self.ultrasonics = []
-        self.distance = defaultdict()
-        self.first_meas = True
+        self.distance = defaultdict(int)
         self.bin_full = False
         self.bin_limit = Constants.BIN_ULTRASONIC_FULL_LEVEL
 
