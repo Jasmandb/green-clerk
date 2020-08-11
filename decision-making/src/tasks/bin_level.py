@@ -40,7 +40,7 @@ if __name__ == '__main__':
     logger.debug('starting new arduino connection')
     arduino_manager = ArduinoManager()
     arduino_manager.run()
-    communication_manager = CommunicationManager('/dev/ttyUSB0')
+    communication_manager = CommunicationManager('mechanical')
 
     logger.info('BinLevel')
 
@@ -48,5 +48,6 @@ if __name__ == '__main__':
     bin_level.run()
     logger.debug('Is bin_level full?: {}'.format(bin_level.bin_full))
     logger.debug('closing the arduino connection')
+    logger.debug('bin_level.distance: {}'.format(bin_level.distance))
 
     communication_manager.close_ard_connection()

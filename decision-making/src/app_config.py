@@ -11,7 +11,7 @@ class Constants(int, Enum):
     WEIGHT = 136
     NUM_INDUCTIVE_SENSOR = 6
     NUM_CAPACITIVE_SENSOR = 6
-    BIN_ULTRASONIC_FULL_LEVEL = 40
+    BIN_ULTRASONIC_FULL_LEVEL = 30
 
 
 @unique
