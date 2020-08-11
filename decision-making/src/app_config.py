@@ -11,11 +11,13 @@ class Constants(int, Enum):
     WEIGHT = 136
     NUM_INDUCTIVE_SENSOR = 6
     NUM_CAPACITIVE_SENSOR = 6
+    BIN_ULTRASONIC_FULL_LEVEL = 40
 
 
 @unique
 class Pins(list, Enum):
     INDUCTIVE_PINS = [2, 3, 4, 5, 6, 7]
+    BIN_ULTRASONIC_PINS = []
     CAPACITIVE_PINS = [8, 9, 10, 11, 12, 13]
     ULTRASONIC_PINS = [(9, 8), (5, 4)]
     IR_PINS = [3]
