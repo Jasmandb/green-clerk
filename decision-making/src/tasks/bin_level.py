@@ -36,11 +36,12 @@ class BinLevel:
 if __name__ == '__main__':
     from src.tasks.communication_manager import CommunicationManager
     from src.tasks.arduino_manager import ArduinoManager
+    from src.app_config import Arduino
 
     logger.debug('starting new arduino connection')
     arduino_manager = ArduinoManager()
     arduino_manager.run()
-    communication_manager = CommunicationManager('mechanical')
+    communication_manager = CommunicationManager(Arduino['mechanical'])
 
     logger.info('BinLevel')
 
