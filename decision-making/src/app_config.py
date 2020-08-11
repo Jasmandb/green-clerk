@@ -21,7 +21,7 @@ class Pins(list, Enum):
     IR_PINS = [9]
     FLASH_PIN = [13]
     SERVO_PINS = [3]
-    WEIGHT_PINS = [(15, 14, -259.80)]
+    WEIGHT_PINS = [(15, 14, -259.8)]
     DOOR = [11, 12, 10]
 
 
