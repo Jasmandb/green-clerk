@@ -35,12 +35,14 @@ class BinLevel:
 
 if __name__ == '__main__':
     from src.tasks.communication_manager import CommunicationManager
+    from src.tasks.arduino_manager import ArduinoManager
 
     logger.debug('starting new arduino connection')
+    arduino_manager = ArduinoManager()
+    arduino_manager.run()
     communication_manager = CommunicationManager('/dev/ttyUSB0')
 
     logger.info('BinLevel')
-    test = input('Enter a number: ')
 
     bin_level = BinLevel(communication_manager.connection)
     bin_level.run()
