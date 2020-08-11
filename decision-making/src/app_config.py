@@ -11,6 +11,7 @@ class Constants(int, Enum):
     WEIGHT = 136
     NUM_INDUCTIVE_SENSOR = 6
     NUM_CAPACITIVE_SENSOR = 6
+    BIN_ULTRASONIC_FULL_LEVEL = 40
 
 
 @unique
@@ -23,6 +24,7 @@ class Pins(list, Enum):
     SERVO_PINS = [3]
     WEIGHT_PINS = [(15, 14, -259.8)]
     DOOR = [11, 12, 10]
+    BIN_ULTRASONIC_PINS = []
 
 
 Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
