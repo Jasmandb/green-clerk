@@ -24,7 +24,7 @@ class ItemDetection:
             self.ard_api.digitalWrite(ir_pin, self.ard_api.HIGH)
 
     def setup_ultrasonic_obj(self):
-        for ping_pin, echo_pin in Pins.ULTRASONIC_PINS:
+        for echo_pin, ping_pin in Pins.ULTRASONIC_PINS:
             self.ultrasonics.append((Ultrasonic(echo_pin, ping_pin, False, connection=self.connection), ping_pin))
 
     def run(self):
