@@ -32,11 +32,15 @@ class Drop:
         self.rotate_target.roll_back()
         self.com_manager.close_ard_connection()
         self.com_manager = CommunicationManager(Arduino['mechanical'])
+        logger.debug('getting the bin levels')
         self.bin_level = BinLevel(self.com_manager)
+        self.bin_level.run()
         if self.bin_level.bin_full:
+            logger.debug('bin level is full')
             self.light_control = LightControl(self.com_manager.connection, Pins.BIN_LEVEL_LIGHT[0])
             self.light_control.run(States.OPEN)
             self.system_hold = True
+        logger.debug('bin level exists with status: {}'.format(self.bin_level.bin_full))
         self.com_manager.close_ard_connection()
 
 

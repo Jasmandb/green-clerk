@@ -20,7 +20,7 @@ class Pins(list, Enum):
     CAPACITIVE_PINS = [1, 2, 3, 4, 5, 6]
     ULTRASONIC_PINS = [(8, 7), (6, 5)]
     IR_PINS = [9]
-    FLASH_PIN = [13]
+    FLASH_PIN = [14]
     SERVO_PINS = [3]
     WEIGHT_PINS = [(15, 14, -259.8)]
     DOOR = [11, 12, 10]
@@ -30,7 +30,7 @@ class Pins(list, Enum):
 
 
 Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
-
+Connections = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
 
 @unique
 class ArduinoArsojaID(str, Enum):
