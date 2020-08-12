@@ -26,20 +26,26 @@ class WorkflowManager:
         while True:
             logger.debug('Stating all Arduinos connection')
             self.start_all_ard_connections()
+
+            if just_started:
+                self.change_system_state(States.CLOSE)
+                just_started = False
+                bin_level = BinLevel(ConnectionManager['mechanical'])
+                bin_level.run()
+                if bin_level.bin_full:
+                    self.wait_until_bins_empty()
+                    logger.debug('The bins are still full, the system is pausing')
+                else:
+                    logger.debug('the system is ready to run')
+                    light_control = LightControl(ConnectionManager['mechanical'].connection,
+                                                 Pins.BIN_LEVEL_LIGHT[0])
+                    light_control.run(States.OPEN)
+
             logger.debug('Confirming that the door is closed and magnets are engaged')
             self.confirm_door_closed()
 
             # 1) Turn the System lights to green
             self.change_system_state(States.OPEN)
-
-            if just_started:
-                just_started = False
-                bin_level = BinLevel(ConnectionManager['mechanical'])
-                bin_level.run()
-                if bin_level.bin_full:
-                    self.change_system_state(States.CLOSE)
-                    self.wait_until_bins_empty()
-                    logger.debug('The bin are full, the system is pausing')
 
             logger.debug('Running Item Detection')
             # 2) start the item detection script
@@ -74,6 +80,8 @@ class WorkflowManager:
         door_control.run(States.CLOSE)
 
     def wait_until_bins_empty(self):
+        light_control = LightControl(ConnectionManager['mechanical'].connection, Pins.BIN_LEVEL_LIGHT[0])
+        light_control.run(States.CLOSE)
         while True:
             pass
 

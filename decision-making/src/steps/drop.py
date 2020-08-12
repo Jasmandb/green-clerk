@@ -1,7 +1,6 @@
 from src.app_config import Step, States, logging, Pins, ConnectionManager
 from src.tasks.bin_level import BinLevel
 from src.tasks.door_control import DoorControl
-from src.tasks.light_control import LightControl
 from src.tasks.rotate_target import RotateTarget
 import time
 
@@ -33,8 +32,6 @@ class Drop:
         self.bin_level.run()
         if self.bin_level.bin_full:
             logger.debug('bin level is full')
-            self.light_control = LightControl(ConnectionManager['mechanical'].connection, Pins.BIN_LEVEL_LIGHT[0])
-            self.light_control.run(States.CLOSE)
             self.system_hold = True
         logger.debug('bin level exists with status: {}'.format(self.bin_level.bin_full))
 
