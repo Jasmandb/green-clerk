@@ -33,7 +33,7 @@ class Drop:
         self.com_manager.close_ard_connection()
         self.com_manager = CommunicationManager(Arduino['mechanical'])
         logger.debug('getting the bin levels')
-        self.bin_level = BinLevel(self.com_manager)
+        self.bin_level = BinLevel(self.com_manager.connection)
         self.bin_level.run()
         if self.bin_level.bin_full:
             logger.debug('bin level is full')

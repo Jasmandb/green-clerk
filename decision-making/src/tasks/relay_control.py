@@ -24,7 +24,7 @@ class RelayControl:
 
 if __name__ == '__main__':
     from src.tasks.communication_manager import CommunicationManager
-    from src.app_config import Arduino
+    from src.app_config import Arduino, Pins
 
     logger.debug('starting new arduino connection')
     communication_manager = CommunicationManager(Arduino['detect_item'])
@@ -33,6 +33,6 @@ if __name__ == '__main__':
     while True:
         test = input('Enter a number: ')
         if test == '1':
-            RelayControl(communication_manager.connection, 5).run(States.OPEN)
+            RelayControl(communication_manager.connection, Pins.FLASH_PIN[0]).run(States.OPEN)
         else:
-            RelayControl(communication_manager.connection, 5).run(States.CLOSE)
+            RelayControl(communication_manager.connection, Pins.FLASH_PIN[0]).run(States.CLOSE)
