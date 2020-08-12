@@ -1,5 +1,4 @@
-from src.tasks.communication_manager import CommunicationManager
-from src.app_config import logging, Arduino, Pins, States
+from src.app_config import logging, Pins, States
 import cv2
 from time import sleep
 from picamera import PiCamera
@@ -10,10 +9,11 @@ logger = logging.getLogger(__name__)
 
 
 class CameraControl:
-    def __init__(self):
+    def __init__(self, connection):
         self.image_location = 'resources/webcam_img.jpg'
         self.image_width = 1280
         self.image_height = 720
+        self.connection = connection
 
     def take_picture(self):
         try:
@@ -35,8 +35,7 @@ class CameraControl:
 
     def take_picture_picam(self):
         try:
-            com_manager = CommunicationManager(Arduino['detect_item'])
-            relay_control = RelayControl(com_manager.connection, Pins.FLASH_PIN[0])
+            relay_control = RelayControl(self.connection, Pins.FLASH_PIN[0])
             relay_control.run(States.OPEN)
             camera = PiCamera()
             camera.resolution = (1024, 768)
@@ -45,12 +44,20 @@ class CameraControl:
             camera.capture(self.image_location, resize=(320, 240))
             camera.stop_preview()
             relay_control.run(States.CLOSE)
-            com_manager.close_ard_connection()
         except Exception as e:
             logger.error('Failed to access the webcam with exception {}'.format(e))
             raise e
 
 
 if __name__ == '__main__':
+    from src.tasks.communication_manager import CommunicationManager
+    from src.app_config import Arduino
     logger.info('Starting CameraControl and taking a picture')
-    CameraControl().take_picture()
+
+    logger.debug('starting new arduino connection')
+    communication_manager = CommunicationManager(Arduino['detect_item'])
+    logger.info('CameraControl')
+
+    CameraControl(communication_manager.connection).take_picture()
+
+    communication_manager.close_ard_connection()

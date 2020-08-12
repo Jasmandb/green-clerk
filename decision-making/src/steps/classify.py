@@ -1,6 +1,5 @@
-from src.app_config import Step, Classification, Constants, logging, Arduino
+from src.app_config import Step, Classification, Constants, logging, ConnectionManager
 from src.tasks.arduino_manager import ArduinoManager
-from src.tasks.communication_manager import CommunicationManager
 from src.tasks.sensors_manager import SensorsManager
 from src.tasks.computer_vision import ComputerVision
 
@@ -9,9 +8,9 @@ logger = logging.getLogger(__name__)
 
 class Classify:
     def __init__(self, waste):
-        self.com_manager = CommunicationManager(Arduino['classification_sensors'])
-        self.sensors_manager = SensorsManager(self.com_manager.ard_api, self.com_manager.connection)
-        self.computer_vision = ComputerVision()
+        self.sensors_manager = SensorsManager(ConnectionManager['classification'].ard_api,
+                                              ConnectionManager['classification'].connection)
+        self.computer_vision = ComputerVision(ConnectionManager['detect_item'])
         self.waste = waste
         self.waste.step = Step.CLASSIFY
         self.waste.workflow[Step.CLASSIFY] = {}  # TODO: Can be changed to string later depending on the steps classes
@@ -20,7 +19,6 @@ class Classify:
         logger.info('Running the classifying class')
         self.computer_vision.run()
         self.sensors_manager.run()
-        self.com_manager.close_ard_connection()
         if self.sensors_manager.inductive.get_percentage_triggered() > Constants.INDUCTIVE_SENSOR_THRESHOLD:
             self.waste.type = Classification.RECYCLABLES
             return
@@ -83,6 +81,14 @@ class Classify:
 if __name__ == '__main__':
     logger.info('classify class')
     from src.app_config import Waste
+    from src.tasks.communication_manager import CommunicationManager
+    from src.app_config import Arduino
+
+    com_manager = CommunicationManager(Arduino['detect_item'])
+    ConnectionManager['detect_item'] = com_manager
+    com_manager = CommunicationManager(Arduino['classification'])
+    ConnectionManager['classification'] = com_manager
+
     arduino_manager = ArduinoManager()
     arduino_manager.run()
     waste = Waste()

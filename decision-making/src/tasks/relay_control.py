@@ -30,9 +30,10 @@ if __name__ == '__main__':
     communication_manager = CommunicationManager(Arduino['detect_item'])
     logger.info('RelayControl')
 
-    while True:
-        test = input('Enter a number: ')
-        if test == '1':
-            RelayControl(communication_manager.connection, Pins.FLASH_PIN[0]).run(States.OPEN)
-        else:
-            RelayControl(communication_manager.connection, Pins.FLASH_PIN[0]).run(States.CLOSE)
+    test = input('Enter a number: ')
+    if test == '1':
+        RelayControl(communication_manager.connection, Pins.FLASH_PIN[0]).run(States.OPEN)
+    else:
+        RelayControl(communication_manager.connection, Pins.FLASH_PIN[0]).run(States.CLOSE)
+
+    communication_manager.close_ard_connection()

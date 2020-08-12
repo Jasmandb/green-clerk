@@ -12,9 +12,9 @@ logger = logging.getLogger(__name__)
 
 
 class ComputerVision:
-    def __init__(self):
+    def __init__(self, connection):
         self.type = {}
-        self.camera_control = CameraControl()
+        self.camera_control = CameraControl(connection)
         self.image_location = None
         self.model_file = 'resources/new_mobile_model.tflite'
         self.labels = ['Garbage', 'Glass', 'Metal', 'Paper', 'Plastic']

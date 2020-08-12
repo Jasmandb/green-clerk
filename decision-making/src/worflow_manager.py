@@ -1,4 +1,4 @@
-from src.app_config import Waste, logging, Arduino, States, Pins
+from src.app_config import Waste, logging, Arduino, States, Pins, ConnectionManager
 from src.steps.classify import Classify
 from src.steps.drop import Drop
 from src.tasks.arduino_manager import ArduinoManager
@@ -20,17 +20,17 @@ class WorkflowManager:
     def start(self):
         arduino_manager = ArduinoManager()
         arduino_manager.run()
+        self.start_all_ard_connections()
         self.confirm_door_closed()
 
         while True:
             logger.debug('Running Item Detection')
             self.change_system_status(States.OPEN)
-            com_manager = CommunicationManager(Arduino['detect_item'])
-            item_detection = ItemDetection(com_manager.ard_api, com_manager.connection)
+            item_detection = ItemDetection(ConnectionManager['detect_item'].ard_api,
+                                           ConnectionManager['detect_item'].connection)
             item_detection.run()
-            com_manager.close_ard_connection()
-            self.change_system_status(States.CLOSE)
             logger.debug('A new item has been inserted')
+            self.change_system_status(States.CLOSE)
             waste = Waste()
             classify_step = Classify(waste)
             classify_step.run()
@@ -43,19 +43,24 @@ class WorkflowManager:
             logger.debug('Dropping step is done with status {} and waiting for a new item'.format(drop_step.status))
 
     def change_system_status(self, state):
-        com_manager = CommunicationManager(Arduino['mechanical'])
-        light_control = LightControl(com_manager.connection, Pins.SYSTEM_LIGHT[0])
+        light_control = LightControl(ConnectionManager['mechanical'].connection, Pins.SYSTEM_LIGHT[0])
         light_control.run(state)
-        com_manager.close_ard_connection()
 
     def confirm_door_closed(self):
-        com_manager = CommunicationManager(Arduino['detect_item'])
-        door_control = DoorControl(com_manager.connection)
+        door_control = DoorControl(ConnectionManager['detect_item'].connection)
         door_control.run(States.CLOSE)
-        com_manager.close_ard_connection()
 
     def wait_until_bins_empty(self):
-        pass
+        while True:
+            pass
+
+    def start_all_ard_connections(self):
+        com_manager = CommunicationManager(Arduino['detect_item'])
+        ConnectionManager['detect_item'] = com_manager
+        com_manager = CommunicationManager(Arduino['mechanical'])
+        ConnectionManager['mechanical'] = com_manager
+        com_manager = CommunicationManager(Arduino['classification'])
+        ConnectionManager['classification'] = com_manager
 
 
 if __name__ == '__main__':

@@ -30,7 +30,8 @@ class Pins(list, Enum):
 
 
 Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
-Connections = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
+ConnectionManager = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
+
 
 @unique
 class ArduinoArsojaID(str, Enum):

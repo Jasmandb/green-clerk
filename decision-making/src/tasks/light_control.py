@@ -32,11 +32,12 @@ if __name__ == '__main__':
 
     arduino_manager = ArduinoManager()
     communication_manager = CommunicationManager(Arduino['mechanical'])
-    logger.info('RelayControl')
+    logger.info('LightControl')
 
-    while True:
-        test = input('Enter a number: ')
-        if test == '1':
-            LightControl(communication_manager.connection, Pins.SYSTEM_LIGHT[0]).run(States.OPEN)
-        else:
-            LightControl(communication_manager.connection, Pins.SYSTEM_LIGHT[0]).run(States.CLOSE)
+    test = input('Enter a number: ')
+    if test == '1':
+        LightControl(communication_manager.connection, Pins.SYSTEM_LIGHT[0]).run(States.OPEN)
+    else:
+        LightControl(communication_manager.connection, Pins.SYSTEM_LIGHT[0]).run(States.CLOSE)
+
+    communication_manager.close_ard_connection()

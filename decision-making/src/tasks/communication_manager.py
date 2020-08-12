@@ -1,6 +1,5 @@
-from src.app_config import logging
-
 from nanpy import SerialManager, ArduinoApi
+from src.app_config import logging
 
 logger = logging.getLogger(__name__)
 
