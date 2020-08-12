@@ -27,9 +27,10 @@ class RotateTarget:
 if __name__ == '__main__':
     from src.app_config import Classification
     from src.tasks.communication_manager import CommunicationManager
+    from src.app_config import Arduino
 
     logger.debug('starting new arduino connection')
-    communication_manager = CommunicationManager('/dev/ttyUSB0')
+    communication_manager = CommunicationManager(Arduino['detect_item'])
 
     logger.info('RotateTarget')
     test = input('Enter a number: ')
