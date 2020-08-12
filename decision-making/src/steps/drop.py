@@ -38,7 +38,7 @@ class Drop:
         if self.bin_level.bin_full:
             logger.debug('bin level is full')
             self.light_control = LightControl(self.com_manager.connection, Pins.BIN_LEVEL_LIGHT[0])
-            self.light_control.run(States.OPEN)
+            self.light_control.run(States.CLOSE)
             self.system_hold = True
         logger.debug('bin level exists with status: {}'.format(self.bin_level.bin_full))
         self.com_manager.close_ard_connection()
