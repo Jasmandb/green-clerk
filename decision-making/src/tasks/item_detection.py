@@ -53,8 +53,11 @@ class ItemDetection:
 if __name__ == '__main__':
     from src.tasks.communication_manager import CommunicationManager
     from src.app_config import Arduino
+    from src.tasks.arduino_manager import ArduinoManager
 
     logger.debug('starting new arduino connection')
+    ard_manager = ArduinoManager()
+    ard_manager.run()
     communication_manager = CommunicationManager(Arduino['detect_item'])
     ItemDetection(communication_manager.ard_api, communication_manager.connection).run()
     logger.debug('closing the arduino connection')

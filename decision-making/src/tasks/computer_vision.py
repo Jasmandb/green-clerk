@@ -82,4 +82,14 @@ class ComputerVision:
 
 
 if __name__ == '__main__':
-    ComputerVision().run()
+    from src.tasks.communication_manager import CommunicationManager
+    from src.app_config import Arduino
+    from src.tasks.arduino_manager import ArduinoManager
+
+    logger.debug('starting new arduino connection')
+    ard_manager = ArduinoManager()
+    ard_manager.run()
+
+    communication_manager = CommunicationManager(Arduino['detect_item'])
+    logger.info('ComputerVision')
+    ComputerVision(communication_manager.connection).run()

@@ -28,7 +28,11 @@ if __name__ == '__main__':
     from src.app_config import Classification
     from src.tasks.communication_manager import CommunicationManager
     from src.app_config import Arduino
+    from src.tasks.arduino_manager import ArduinoManager
 
+    logger.debug('starting new arduino connection')
+    ard_manager = ArduinoManager()
+    ard_manager.run()
     logger.debug('starting new arduino connection')
     communication_manager = CommunicationManager(Arduino['detect_item'])
 
