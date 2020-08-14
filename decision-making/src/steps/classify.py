@@ -83,6 +83,7 @@ if __name__ == '__main__':
     from src.app_config import Waste
     from src.tasks.communication_manager import CommunicationManager
     from src.app_config import Arduino
+    from picamera import PiCamera
 
     arduino_manager = ArduinoManager()
     arduino_manager.run()
@@ -90,6 +91,8 @@ if __name__ == '__main__':
     ConnectionManager['detect_item'] = com_manager
     com_manager = CommunicationManager(Arduino['classification'])
     ConnectionManager['classification'] = com_manager
+    camera = PiCamera()
+    ConnectionManager['camera'] = camera
 
     waste = Waste()
     classify = Classify(waste)
