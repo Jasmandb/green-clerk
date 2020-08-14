@@ -84,13 +84,13 @@ if __name__ == '__main__':
     from src.tasks.communication_manager import CommunicationManager
     from src.app_config import Arduino
 
+    arduino_manager = ArduinoManager()
+    arduino_manager.run()
     com_manager = CommunicationManager(Arduino['detect_item'])
     ConnectionManager['detect_item'] = com_manager
     com_manager = CommunicationManager(Arduino['classification'])
     ConnectionManager['classification'] = com_manager
 
-    arduino_manager = ArduinoManager()
-    arduino_manager.run()
     waste = Waste()
     classify = Classify(waste)
     classify.run()
