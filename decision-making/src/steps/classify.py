@@ -54,7 +54,9 @@ class Classify:
     def capacitive_sensor_above_threshold(self):
         logger.debug('The capacitive sensor is above the threshold.')
         heavy_item = self.sensors_manager.weight.value > Constants.WEIGHT
-        if self.computer_vision.type[1] == Classification.PAPER and not heavy_item:
+        if heavy_item:
+            self.waste.type = Classification.GLASS
+        elif self.computer_vision.type[1] == Classification.PAPER and not heavy_item:
             self.waste.type = Classification.PAPER
         elif self.computer_vision.type[1] == Classification.GLASS:
             self.waste.type = Classification.GLASS
@@ -65,9 +67,6 @@ class Classify:
             self.waste.type = Classification.RECYCLABLES
         else:
             self.waste.type = Classification.GARBAGE
-
-            # elif self.computer_vision.type[1] == Classification.PLASTIC and heavy_item and self.computer_vision.type[
-            #     2] and self.computer_vision.type[2] == Classification.GLASS
 
     def no_sensor_triggered(self):
         logger.debug('No sensor was triggered')
