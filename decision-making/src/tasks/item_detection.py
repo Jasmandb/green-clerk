@@ -43,7 +43,11 @@ class ItemDetection:
                 if abs(self.base_meas[ping_pin] - self.distance[ping_pin]) > 2:
                     self.item_detected = True
                     logger.debug(
-                        'Ultrasonic detection with ping_pin, reading: {}, {}'.format(ping_pin, self.distance[ping_pin]))
+                        'Ultrasonic detection with ping_pin, reading, base_measurement: {}, {}, {}'.format(ping_pin,
+                                                                                                           self.distance[
+                                                                                                               ping_pin],
+                                                                                                           self.base_meas[
+                                                                                                               ping_pin]))
             for ir_pin in Pins.IR_PINS:
                 if self.ard_api.digitalRead(ir_pin) == self.ard_api.LOW:
                     self.item_detected = True
