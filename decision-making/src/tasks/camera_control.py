@@ -1,4 +1,4 @@
-from src.app_config import logging, Pins, States
+from src.app_config import logging, Pins, States, ConnectionManager
 import cv2
 from time import sleep
 from picamera import PiCamera
@@ -37,7 +37,7 @@ class CameraControl:
         try:
             relay_control = RelayControl(self.connection, Pins.FLASH_PIN[0])
             relay_control.run(States.OPEN)
-            camera = PiCamera()
+            camera = ConnectionManager['camera']
             camera.resolution = (1024, 768)
             camera.start_preview()
             sleep(2)  # Camera warm-up time

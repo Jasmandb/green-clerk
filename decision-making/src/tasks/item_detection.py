@@ -40,7 +40,7 @@ class ItemDetection:
                 self.base_meas = deepcopy(self.distance)
 
             for ultrasonic, ping_pin, in self.ultrasonics:
-                if abs(self.base_meas[ping_pin] - self.distance[ping_pin]) > 2:
+                if abs(self.base_meas[ping_pin] - self.distance[ping_pin]) > 10:
                     self.item_detected = True
                     logger.debug(
                         'Ultrasonic detection with ping_pin, reading, base_measurement: {}, {}, {}'.format(ping_pin,

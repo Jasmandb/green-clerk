@@ -8,6 +8,7 @@ from src.tasks.communication_manager import CommunicationManager
 from src.tasks.door_control import DoorControl
 from src.tasks.item_detection import ItemDetection
 from src.tasks.light_control import LightControl
+from picamera import PiCamera
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +25,8 @@ class WorkflowManager:
         arduino_manager = ArduinoManager()
         arduino_manager.run()
         just_started = True
+        camera = PiCamera()
+        ConnectionManager['camera'] = camera
         while True:
             logger.debug('Stating all Arduinos connection')
             self.start_all_ard_connections()
