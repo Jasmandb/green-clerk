@@ -35,9 +35,9 @@ ConnectionManager = {'detect_item': None, 'classification_sensors': None, 'mecha
 
 @unique
 class ArduinoArsojaID(str, Enum):
-    Arsoja_Arduino_2308_6030 = 'detect_item'
+    Arsoja_Arduino_3616_2060 = 'detect_item'
     Arsoja_Arduino_9810_2147 = 'classification_sensors'
-    Arsoja_Arduino_6622_9017 = 'mechanical'
+    Arsoja_Arduino_6956_1790 = 'mechanical'
 
 
 @unique
