@@ -58,14 +58,16 @@ class Classify:
             self.waste.type = Classification.PAPER
         elif self.computer_vision.type[1] == Classification.GLASS:
             self.waste.type = Classification.GLASS
-        elif self.computer_vision.type[1] == Classification.PLASTIC and heavy_item and self.computer_vision.type[
-            2] and self.computer_vision.type[2] == Classification.GLASS:
+        elif self.computer_vision.type[1] == Classification.PLASTIC and heavy_item:
             self.waste.type = Classification.GLASS
         elif self.computer_vision.type[1] == Classification.PLASTIC and not heavy_item and self.computer_vision.type[
             2] and self.computer_vision.type[2] != Classification.GARBAGE:
             self.waste.type = Classification.RECYCLABLES
         else:
             self.waste.type = Classification.GARBAGE
+
+            # elif self.computer_vision.type[1] == Classification.PLASTIC and heavy_item and self.computer_vision.type[
+            #     2] and self.computer_vision.type[2] == Classification.GLASS
 
     def no_sensor_triggered(self):
         logger.debug('No sensor was triggered')
