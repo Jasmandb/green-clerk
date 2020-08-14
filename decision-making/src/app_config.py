@@ -31,14 +31,14 @@ class Pins(list, Enum):
     SYSTEM_LIGHT = [(4, 5)]
 
 
-Arduino = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
-ConnectionManager = {'detect_item': None, 'classification_sensors': None, 'mechanical': None}
+Arduino = {'detect_item': None, 'classification': None, 'mechanical': None}
+ConnectionManager = {'detect_item': None, 'classification': None, 'mechanical': None}
 
 
 @unique
 class ArduinoArsojaID(str, Enum):
     Arsoja_Arduino_3616_2060 = 'detect_item'
-    Arsoja_Arduino_9810_2147 = 'classification_sensors'
+    Arsoja_Arduino_3501_4781 = 'classification'
     Arsoja_Arduino_6956_1790 = 'mechanical'
 
 
