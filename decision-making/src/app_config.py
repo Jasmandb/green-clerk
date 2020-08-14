@@ -12,17 +12,19 @@ class Constants(int, Enum):
     NUM_INDUCTIVE_SENSOR = 6
     NUM_CAPACITIVE_SENSOR = 6
     BIN_ULTRASONIC_FULL_LEVEL = 30
+    WEIGHT_SENSOR_OFFSET = -18727
+    DETECTION_ULTRASONIC_DIFF = 2
 
 
 @unique
 class Pins(list, Enum):
-    INDUCTIVE_PINS = [7, 8, 9, 10, 11, 12]
-    CAPACITIVE_PINS = [1, 2, 3, 4, 5, 6]
+    INDUCTIVE_PINS = [4, 5, 8, 9, 12, 13]
+    CAPACITIVE_PINS = [2, 3, 6, 7, 10, 11]
     ULTRASONIC_PINS = [(8, 7), (6, 5)]
     IR_PINS = [9]
     FLASH_PIN = [14]
     SERVO_PINS = [3]
-    WEIGHT_PINS = [(15, 14, -259.8)]
+    WEIGHT_PINS = [(15, 14, -262.0)]
     DOOR = [11, 12, 10]
     BIN_ULTRASONIC_PINS = [(6, 7), (10, 11)]  # [(6, 7), (8, 9), (10, 11), (12, 13)]
     BIN_LEVEL_LIGHT = [(2, 3)]

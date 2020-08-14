@@ -83,7 +83,7 @@ class WeightSensor:
     def __init__(self, ard_api, connection):
         self.value = None
         self.conversion_factor = 1000
-        self.offset = -18526
+        self.offset = Constants.WEIGHT_SENSOR_OFFSET
         self.ard_api = ard_api
         self.connection = connection
         self.weight_sensors = []
@@ -98,6 +98,28 @@ class WeightSensor:
         for data_out_pin, clock_pin, calibration_factor in Pins.WEIGHT_PINS:
             self.weight_sensors.append(
                 (Load(data_out_pin, clock_pin, calibration_factor, self.connection), data_out_pin))
+
+
+# class WeightSensorTest:
+#     def __init__(self):
+#         self.value = None
+#         self.offset = 0
+#         self.weight_sensors = []
+#         self.setup_weight_sensors_obj()
+#
+#     def store_sensor_readings(self):
+#         for weight_sensor, data_out_pin in self.weight_sensors:
+#             self.value = weight_sensor.get_weight(20) + self.offset
+#             logger.debug('weight sensor with data_out_pin {} read a value of {}'.format(data_out_pin, self.value))
+#             GPIO.cleanup()
+#
+#     def setup_weight_sensors_obj(self):
+#         for data_out_pin, clock_pin, calibration_factor in Pins.WEIGHT_PINS:
+#             hx711_obj = HX711(4, 11)
+#             hx711_obj.set_reading_format('MSB', 'MSB')
+#             hx711_obj.set_reference_unit(1)
+#             hx711_obj.reset()
+#             self.weight_sensors.append((hx711_obj, data_out_pin))
 
 
 if __name__ == '__main__':

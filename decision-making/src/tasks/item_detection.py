@@ -1,7 +1,7 @@
 import time
 from copy import deepcopy
 from collections import defaultdict
-from src.app_config import Pins, logging
+from src.app_config import Pins, logging, Constants
 from nanpy import Ultrasonic
 
 logger = logging.getLogger(__name__)
@@ -40,7 +40,7 @@ class ItemDetection:
                 self.base_meas = deepcopy(self.distance)
 
             for ultrasonic, ping_pin, in self.ultrasonics:
-                if abs(self.base_meas[ping_pin] - self.distance[ping_pin]) > 10:
+                if abs(self.base_meas[ping_pin] - self.distance[ping_pin]) > Constants.DETECTION_ULTRASONIC_DIFF:
                     self.item_detected = True
                     logger.debug(
                         'Ultrasonic detection with ping_pin, reading, base_measurement: {}, {}, {}'.format(ping_pin,
