@@ -31,7 +31,7 @@ class WorkflowManager:
             if just_started:
                 self.change_system_state(States.CLOSE)
                 just_started = False
-                bin_level = BinLevel(ConnectionManager['mechanical'])
+                bin_level = BinLevel(ConnectionManager['mechanical'].connection)
                 bin_level.run()
                 if bin_level.bin_full:
                     self.wait_until_bins_empty()
@@ -60,7 +60,7 @@ class WorkflowManager:
             waste = Waste()
             # classify_step = Classify(waste)
             # classify_step.run()
-            camera_control = CameraControl(ConnectionManager['detect_item'])
+            camera_control = CameraControl(ConnectionManager['detect_item'].connection)
             camera_control.take_picture_picam()
             waste.type = Classification.GLASS
 
