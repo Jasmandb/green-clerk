@@ -10,7 +10,7 @@ class Classify:
     def __init__(self, waste):
         self.sensors_manager = SensorsManager(ConnectionManager['classification'].ard_api,
                                               ConnectionManager['classification'].connection)
-        self.computer_vision = ComputerVision(ConnectionManager['detect_item'])
+        self.computer_vision = ComputerVision(ConnectionManager['detect_item'].connection)
         self.waste = waste
         self.waste.step = Step.CLASSIFY
         self.waste.workflow[Step.CLASSIFY] = {}  # TODO: Can be changed to string later depending on the steps classes
