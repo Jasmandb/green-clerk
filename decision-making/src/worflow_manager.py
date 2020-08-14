@@ -39,12 +39,10 @@ class WorkflowManager:
                 if bin_level.bin_full:
                     self.wait_until_bins_empty()
                     logger.debug('The bins are still full, the system is pausing')
-                else:
-                    logger.debug('the system is ready to run')
-                    light_control = LightControl(ConnectionManager['mechanical'].connection,
-                                                 Pins.BIN_LEVEL_LIGHT[0])
-                    light_control.run(States.OPEN)
 
+            logger.debug('the system is ready to run')
+            light_control = LightControl(ConnectionManager['mechanical'].connection, Pins.BIN_LEVEL_LIGHT[0])
+            light_control.run(States.OPEN)
             logger.debug('Confirming that the door is closed and magnets are engaged')
             self.confirm_door_closed()
 
@@ -65,7 +63,7 @@ class WorkflowManager:
             # classify_step.run()
             camera_control = CameraControl(ConnectionManager['detect_item'].connection)
             camera_control.take_picture_picam()
-            waste.type = Classification.GLASS
+            waste.type = Classification.RECYCLABLES
 
             logger.debug('Classify step is done and the determined the waste type to be {}'.format(waste.type))
             drop_step = Drop(waste)
@@ -78,7 +76,6 @@ class WorkflowManager:
                 logger.debug('The bin are full, the system is pausing')
             logger.debug('closing all the Arduinos connection')
             self.close_all_ard_connections()
-            break
 
     def change_system_state(self, state):
         light_control = LightControl(ConnectionManager['mechanical'].connection, Pins.SYSTEM_LIGHT[0])

@@ -24,7 +24,7 @@ class Pins(list, Enum):
     SERVO_PINS = [3]
     WEIGHT_PINS = [(15, 14, -259.8)]
     DOOR = [11, 12, 10]
-    BIN_ULTRASONIC_PINS = [(6, 7), (8, 9), (10, 11)]  # [(6, 7), (8, 9), (10, 11), (12, 13)]
+    BIN_ULTRASONIC_PINS = [(6, 7), (10, 11)]  # [(6, 7), (8, 9), (10, 11), (12, 13)]
     BIN_LEVEL_LIGHT = [(2, 3)]
     SYSTEM_LIGHT = [(4, 5)]
 
