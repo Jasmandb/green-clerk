@@ -75,6 +75,7 @@ class WorkflowManager:
                 logger.debug('The bin are full, the system is pausing')
             logger.debug('closing all the Arduinos connection')
             self.close_all_ard_connections()
+            break
 
     def change_system_state(self, state):
         light_control = LightControl(ConnectionManager['mechanical'].connection, Pins.SYSTEM_LIGHT[0])
