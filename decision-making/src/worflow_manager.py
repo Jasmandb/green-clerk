@@ -16,7 +16,7 @@ class WorkflowManager:
     def __init__(self):
         pass
 
-    # 1) detect if new item is ins1erted
+    # 1) detect if new item is inserted
     # 2) classify the item
     # 3) Drop the item
     def start(self):
@@ -92,13 +92,13 @@ class WorkflowManager:
         ConnectionManager['detect_item'] = com_manager
         com_manager = CommunicationManager(Arduino['mechanical'])
         ConnectionManager['mechanical'] = com_manager
-        # com_manager = CommunicationManager(Arduino['classification'])
-        # ConnectionManager['classification'] = com_manager
+        com_manager = CommunicationManager(Arduino['classification'])
+        ConnectionManager['classification'] = com_manager
 
     def close_all_ard_connections(self):
         ConnectionManager['detect_item'].close_ard_connection()
         ConnectionManager['mechanical'].close_ard_connection()
-        # ConnectionManager['classification'].close_ard_connection()
+        ConnectionManager['classification'].close_ard_connection()
 
 
 if __name__ == '__main__':
