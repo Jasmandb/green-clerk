@@ -1,5 +1,4 @@
 import os
 
-os.chdir("/home/pi/product-name-tbd/decision-making")
-os.system("source venv/bin/activate")
-os.system("sudo python src/workflow_manager.py &")
+os.system(
+    "cd /home/pi/product-name-tbd/decision-making\nsource venv/bin/activate\nsudo python src/workflow_manager.py &")
