@@ -1,4 +1,4 @@
-from src.app_config import Waste, logging, Arduino, States, Pins, ConnectionManager, Classification
+from src.app_config import Waste, logging, Arduino, States, Pins, ConnectionManager
 from src.steps.classify import Classify
 from src.steps.drop import Drop
 from src.tasks.arduino_manager import ArduinoManager
@@ -103,7 +103,12 @@ class WorkflowManager:
 
 
 if __name__ == '__main__':
-    workflow_manager = WorkflowManager()
+    # workflow_manager = WorkflowManager()
     logger.info('--------- Starting The Workflow Manager ----------')
-
-    workflow_manager.start()
+    import time
+    test = 0
+    while True:
+        time.sleep(2)
+        test += 1
+        logger.debug('testing boot up script {}'.format(test))
+    # workflow_manager.start()

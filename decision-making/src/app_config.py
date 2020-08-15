@@ -1,7 +1,8 @@
 from enum import Enum, unique
 import logging
 
-logging.basicConfig(format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
+logging.basicConfig(filename='app.log', filemode='w',
+                    format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
 logging.getLogger("pyserial").setLevel(logging.WARNING)
 
 
@@ -26,7 +27,7 @@ class Pins(list, Enum):
     SERVO_PINS = [3]
     WEIGHT_PINS = [(15, 14, -262.0)]
     DOOR = [11, 12, 10]
-    BIN_ULTRASONIC_PINS = [(6, 7), (10, 11)]  # [(6, 7), (8, 9), (10, 11), (12, 13)]
+    BIN_ULTRASONIC_PINS = [(6, 7), (8, 9), (10, 11), (12, 13)]
     BIN_LEVEL_LIGHT = [(2, 3)]
     SYSTEM_LIGHT = [(4, 5)]
 
