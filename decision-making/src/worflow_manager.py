@@ -3,7 +3,6 @@ from src.steps.classify import Classify
 from src.steps.drop import Drop
 from src.tasks.arduino_manager import ArduinoManager
 from src.tasks.bin_level import BinLevel
-from src.tasks.camera_control import CameraControl
 from src.tasks.communication_manager import CommunicationManager
 from src.tasks.door_control import DoorControl
 from src.tasks.item_detection import ItemDetection
@@ -59,11 +58,8 @@ class WorkflowManager:
             self.change_system_state(States.CLOSE)
             # 4) then run thw classify and drop class
             waste = Waste()
-            # classify_step = Classify(waste)
-            # classify_step.run()
-            camera_control = CameraControl(ConnectionManager['detect_item'].connection)
-            camera_control.take_picture_picam()
-            waste.type = Classification.RECYCLABLES
+            classify_step = Classify(waste)
+            classify_step.run()
 
             logger.debug('Classify step is done and the determined the waste type to be {}'.format(waste.type))
             drop_step = Drop(waste)
