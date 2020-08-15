@@ -26,6 +26,8 @@ class WorkflowManager:
         just_started = True
         camera = PiCamera()
         ConnectionManager['camera'] = camera
+        com_manager = CommunicationManager(Arduino['mechanical'])
+        ConnectionManager['mechanical'] = com_manager
         while True:
             logger.debug('Stating all Arduinos connection')
             self.start_all_ard_connections()
@@ -84,20 +86,19 @@ class WorkflowManager:
     def wait_until_bins_empty(self):
         light_control = LightControl(ConnectionManager['mechanical'].connection, Pins.BIN_LEVEL_LIGHT[0])
         light_control.run(States.CLOSE)
+        ConnectionManager['mechanical'].close_ard_connection()
+        self.close_all_ard_connections()
         while True:
             pass
 
     def start_all_ard_connections(self):
         com_manager = CommunicationManager(Arduino['detect_item'])
         ConnectionManager['detect_item'] = com_manager
-        com_manager = CommunicationManager(Arduino['mechanical'])
-        ConnectionManager['mechanical'] = com_manager
         com_manager = CommunicationManager(Arduino['classification'])
         ConnectionManager['classification'] = com_manager
 
     def close_all_ard_connections(self):
         ConnectionManager['detect_item'].close_ard_connection()
-        ConnectionManager['mechanical'].close_ard_connection()
         ConnectionManager['classification'].close_ard_connection()
 
 
