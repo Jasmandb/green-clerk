@@ -21,16 +21,20 @@ class Drop:
 
     def run(self):
         logger.info('Running Drop step with waste type {}'.format(self.waste.type))
-        # ConnectionManager['detect_item'] = CommunicationManager(Arduino['detect_item'])
         self.rotate_target = RotateTarget(ConnectionManager['detect_item'].connection)
         self.rotate_target.run(bin_type=self.waste.type)
+        ConnectionManager['detect_item'].close_ard_connection()
+        ConnectionManager['detect_item'] = CommunicationManager(Arduino['detect_item'])
         logger.debug('Opening up door')
         self.door_control = DoorControl(ConnectionManager['detect_item'].connection)
         self.door_control.run(States.OPEN)
         time.sleep(1)  # 2 second delay for item to drop. May need to modify this
         logger.debug('Closing door')
         self.door_control.run(States.CLOSE)
-        self.rotate_target.roll_back()
+        ConnectionManager['detect_item'].close_ard_connection()
+        ConnectionManager['detect_item'] = CommunicationManager(Arduino['detect_item'])
+        self.rotate_target = RotateTarget(ConnectionManager['detect_item'].connection)
+        self.rotate_target.roll_back(bin_type=self.waste.type)
         logger.debug('getting the bin levels')
         self.bin_level = BinLevel(ConnectionManager['mechanical'].connection)
         self.bin_level.run()
