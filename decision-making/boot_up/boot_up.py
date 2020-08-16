@@ -1,4 +1,4 @@
 import os
 
 os.chdir('/home/pi/product-name-tbd/decision-making')
-os.system('ls -al\nsource venv/bin/activate\nsudo python src/worflow_manager.py')
+os.system('/bin/bash --rcfile boot_up/venv_boot_up.sh')
