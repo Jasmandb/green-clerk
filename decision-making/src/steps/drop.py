@@ -1,4 +1,4 @@
-from src.app_config import Step, States, logging, ConnectionManager
+from src.app_config import Step, States, logging, ConnectionManager, Arduino
 from src.tasks.bin_level import BinLevel
 from src.tasks.door_control import DoorControl
 from src.tasks.rotate_target import RotateTarget
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     from src.app_config import Waste, Classification
     from src.tasks.arduino_manager import ArduinoManager
     # from src.tasks.communication_manager import CommunicationManager
-    from src.app_config import Arduino
+    # from src.app_config import Arduino
 
     arduino_manager = ArduinoManager()
     arduino_manager.run()
