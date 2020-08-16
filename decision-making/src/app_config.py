@@ -1,8 +1,9 @@
 from enum import Enum, unique
 import logging
 
-logging.basicConfig(filename='resources/app.log', filemode='w',
-                    format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
+# logging.basicConfig(filename='resources/app.log', filemode='w',
+#                     format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
+logging.basicConfig(format='[%(asctime)s_%(levelname)s] %(name)s_%(module)s: %(message)s', level=logging.DEBUG)
 logging.getLogger("pyserial").setLevel(logging.WARNING)
 
 
