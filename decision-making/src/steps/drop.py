@@ -25,10 +25,10 @@ class Drop:
         self.rotate_target = RotateTarget(ConnectionManager['detect_item'].connection)
         self.rotate_target.run(bin_type=self.waste.type)
         logger.debug('Opening up door')
+        self.door_control = DoorControl(ConnectionManager['detect_item'].connection)
         self.door_control.run(States.OPEN)
         time.sleep(1)  # 2 second delay for item to drop. May need to modify this
         logger.debug('Closing door')
-        self.door_control = DoorControl(ConnectionManager['detect_item'].connection)
         self.door_control.run(States.CLOSE)
         self.rotate_target.roll_back()
         logger.debug('getting the bin levels')
