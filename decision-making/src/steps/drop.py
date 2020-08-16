@@ -1,7 +1,8 @@
-from src.app_config import Step, States, logging, Pins, ConnectionManager
+from src.app_config import Step, States, logging, ConnectionManager
 from src.tasks.bin_level import BinLevel
 from src.tasks.door_control import DoorControl
 from src.tasks.rotate_target import RotateTarget
+from src.tasks.communication_manager import CommunicationManager
 import time
 
 logger = logging.getLogger(__name__)
@@ -43,7 +44,7 @@ if __name__ == '__main__':
     logger.info('dropping class')
     from src.app_config import Waste, Classification
     from src.tasks.arduino_manager import ArduinoManager
-    from src.tasks.communication_manager import CommunicationManager
+    # from src.tasks.communication_manager import CommunicationManager
     from src.app_config import Arduino
 
     arduino_manager = ArduinoManager()
