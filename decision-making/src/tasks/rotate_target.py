@@ -35,10 +35,10 @@ if __name__ == '__main__':
     ard_manager.run()
 
     logger.info('RotateTarget')
-    test = input('Enter a number: ')
     while True:
         logger.debug('starting new arduino connection')
         communication_manager = CommunicationManager(Arduino['detect_item'])
+        test = input('Enter a number: ')
         if test == '1':
             logger.debug(
                 'Moving to bin: {}, {} degrees'.format(Classification.GARBAGE, BinLocation[Classification.GARBAGE]))
